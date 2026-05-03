@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit2Eat — Healthy Food Delivery Gurgaon</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g1:#1a3d2b; --g2:#2d6a4f; --g3:#40916c; --g4:#74c69d; --gpale:#d8f3dc; --glight:#f0faf4;
+  --o1:#e85d04; --o2:#f4845f; --cream:#faf7f2; --dark:#111827; --gray:#6b7280;
+  --white:#fff; --r:14px; --shadow:0 4px 24px rgba(0,0,0,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;max-width:480px;margin:0 auto}
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+
+/* ── HOME ── */
+#s-home{background:var(–dark)}
+.home-hero{
+background:linear-gradient(160deg,#071a0f 0%,#0f2d1c 40%,#1a3d2b 80%,#2d6a4f 100%);
+padding:0 0 40px;position:relative;overflow:hidden;
+}
+.home-hero::before{
+content:’’;position:absolute;inset:0;
+background:radial-gradient(ellipse 70% 50% at 85% 15%,rgba(116,198,157,0.18) 0%,transparent 70%);
+}
+.home-hero::after{
+content:’’;position:absolute;width:300px;height:300px;border-radius:50%;
+background:radial-gradient(circle,rgba(244,132,95,0.12),transparent 70%);
+bottom:-100px;left:-80px;
+}
+.top-nav{
+display:flex;align-items:center;justify-content:space-between;
+padding:20px 20px 0;position:relative;z-index:2;
+}
+.logo{font-family:‘Syne’,sans-serif;font-size:26px;font-weight:800;color:var(–white);letter-spacing:-0.5px}
+.logo em{color:var(–o2);font-style:normal}
+.call-pill{
+background:var(–o1);color:white;border:none;
+display:flex;align-items:center;gap:6px;
+padding:10px 16px;border-radius:100px;font-size:13px;font-weight:700;
+cursor:pointer;text-decoration:none;font-family:‘Outfit’,sans-serif;
+box-shadow:0 4px 16px rgba(232,93,4,0.4);
+animation:callpulse 2.5s infinite;
+}
+@keyframes callpulse{0%,100%{box-shadow:0 4px 16px rgba(232,93,4,0.35)}50%{box-shadow:0 4px 28px rgba(232,93,4,0.65)}}
+
+.hero-body{padding:36px 20px 0;position:relative;z-index:2}
+.hero-pill{
+display:inline-flex;align-items:center;gap:6px;
+background:rgba(116,198,157,0.12);border:1px solid rgba(116,198,157,0.25);
+color:var(–g4);padding:5px 14px;border-radius:100px;
+font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;
+}
+.hero-h1{font-family:‘Syne’,sans-serif;font-size:clamp(34px,9vw,46px);font-weight:800;color:white;line-height:1.05;margin-bottom:4px}
+.hero-h1 em{color:var(–o2);font-style:normal;display:block}
+.hero-tagline{font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:18px}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:28px;max-width:320px}
+
+.hero-stats{display:flex;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:28px}
+.stat{flex:1;padding:16px 8px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;color:var(–o2)}
+.stat-l{font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+
+.cta-row{display:flex;gap:10px}
+.cta-primary{
+flex:1;background:linear-gradient(135deg,var(–o1),#ff6835);color:white;border:none;
+padding:16px;border-radius:100px;font-size:15px;font-weight:700;font-family:‘Syne’,sans-serif;
+cursor:pointer;box-shadow:0 8px 24px rgba(232,93,4,0.35);transition:all 0.3s;letter-spacing:0.3px;
+}
+.cta-primary:hover{transform:translateY(-2px)}
+.cta-menu{
+background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;
+padding:16px 20px;border-radius:100px;font-size:15px;font-weight:600;font-family:‘Outfit’,sans-serif;
+cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.cta-menu:hover{background:rgba(255,255,255,0.18)}
+
+.home-features{padding:28px 20px}
+.feat-label{font-size:11px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feat-card{
+background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
+border-radius:14px;padding:16px;
+}
+.feat-ico{font-size:22px;margin-bottom:8px}
+.feat-n{font-size:13px;font-weight:600;color:white}
+.feat-s{font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px}
+
+/* ── SHARED HEADER ── */
+.page-header{
+background:var(–white);padding:14px 18px;
+display:flex;align-items:center;gap:10px;
+border-bottom:1px solid #f0f0f0;position:sticky;top:0;z-index:100;
+}
+.back-btn{
+background:var(–glight);border:none;width:36px;height:36px;
+border-radius:10px;cursor:pointer;font-size:17px;
+display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;
+}
+.back-btn:hover{background:var(–g2);color:white}
+.ph-logo{font-family:‘Syne’,sans-serif;font-size:18px;font-weight:800;color:var(–g1)}
+.ph-logo em{color:var(–o1);font-style:normal}
+.step-tag{margin-left:auto;background:var(–gpale);color:var(–g2);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap}
+.prog{height:3px;background:#f0f0f0}
+.prog-f{height:100%;background:linear-gradient(90deg,var(–g2),var(–o2));transition:width 0.4s}
+
+/* CART ICON in header */
+.cart-ico-btn{
+margin-left:auto;position:relative;background:var(–g2);color:white;border:none;
+width:38px;height:38px;border-radius:10px;cursor:pointer;
+display:flex;align-items:center;justify-content:center;font-size:18px;
+transition:all 0.2s;
+}
+.cart-ico-btn:hover{background:var(–g1)}
+.cart-badge{
+position:absolute;top:-4px;right:-4px;background:var(–o1);color:white;
+width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;
+display:flex;align-items:center;justify-content:center;
+}
+
+/* ── MENU ── */
+#s-menu{background:var(–cream)}
+.meal-tabs{
+display:flex;background:var(–white);border-bottom:2px solid #f0f0f0;
+overflow-x:auto;scrollbar-width:none;position:sticky;top:65px;z-index:50;
+}
+.meal-tabs::-webkit-scrollbar{display:none}
+.tab{
+flex-shrink:0;padding:13px 18px;font-size:13px;font-weight:700;
+color:var(–gray);cursor:pointer;border-bottom:3px solid transparent;
+margin-bottom:-2px;transition:all 0.2s;white-space:nowrap;
+}
+.tab.active{color:var(–g2);border-bottom-color:var(–g2)}
+.menu-section{padding:18px 18px 32px;display:none}
+.menu-section.active{display:block}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #f0f0f0}
+.sec-emo{font-size:28px}
+.sec-title{font-family:‘Syne’,sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(–gray);margin-top:2px}
+
+.meal-cards-list{display:flex;flex-direction:column;gap:14px}
+.meal-card{background:var(–white);border-radius:18px;overflow:hidden;box-shadow:var(–shadow);transition:transform 0.2s}
+.meal-card:hover{transform:translateY(-2px)}
+.meal-thumb{
+width:100%;height:190px;overflow:hidden;position:relative;
+background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+display:flex;align-items:center;justify-content:center;
+}
+.meal-thumb .thumb-emoji{font-size:72px}
+.meal-thumb img{width:100%;height:100%;object-fit:cover}
+.meal-veg-tag{
+position:absolute;top:12px;right:12px;
+background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);
+color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;
+}
+.meal-body{padding:16px}
+.meal-name{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800;margin-bottom:5px}
+.meal-desc{font-size:13px;color:var(–gray);line-height:1.65;margin-bottom:12px}
+.meal-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.m-tag{
+display:inline-flex;align-items:center;gap:3px;
+background:var(–glight);color:var(–g2);
+font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;
+}
+.m-tag.orange{background:#fff3ee;color:var(–o1)}
+.m-tag.blue{background:#eff6ff;color:#2563eb}
+.meal-foot{display:flex;align-items:center;justify-content:space-between}
+.meal-price-wrap{}
+.m-price{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;color:var(–g2)}
+.m-price-sub{font-size:11px;color:var(–gray);margin-top:1px}
+.add-to-cart{
+background:var(–g2);color:white;border:none;
+padding:10px 18px;border-radius:100px;font-size:13px;font-weight:700;
+cursor:pointer;font-family:‘Outfit’,sans-serif;transition:all 0.2s;
+display:flex;align-items:center;gap:5px;
+}
+.add-to-cart:hover{background:var(–g1)}
+.add-to-cart.added{background:var(–o1)}
+
+/* ── TOAST ── */
+.toast{
+position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);
+background:var(–g1);color:white;padding:11px 22px;border-radius:100px;
+font-size:13px;font-weight:600;z-index:999;opacity:0;
+transition:all 0.3s;white-space:nowrap;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── FLOW SCREENS ── */
+.flow-content{flex:1;padding:22px 20px 32px;overflow-y:auto}
+.flow-title{font-family:‘Syne’,sans-serif;font-size:26px;font-weight:800;margin-bottom:5px;line-height:1.2}
+.flow-sub{font-size:14px;color:var(–gray);margin-bottom:26px;line-height:1.6}
+.sticky-cta{padding:14px 20px;background:var(–white);border-top:1px solid #f0f0f0;position:sticky;bottom:0}
+.btn-full{
+width:100%;background:linear-gradient(135deg,var(–g2),var(–g3));color:white;border:none;
+padding:16px;border-radius:100px;font-size:15px;font-weight:700;font-family:‘Syne’,sans-serif;
+cursor:pointer;box-shadow:0 6px 20px rgba(45,106,79,0.3);transition:all 0.3s;letter-spacing:0.3px;
+}
+.btn-full:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(45,106,79,0.4)}
+.btn-full:disabled{opacity:0.45;cursor:not-allowed;transform:none}
+
+/* GOAL */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:28px}
+.goal-card{
+background:var(–white);border:2px solid #f0f0f0;border-radius:16px;
+padding:18px 12px;cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.goal-card:hover,.goal-card.sel{border-color:var(–g2);background:var(–gpale)}
+.g-ico{font-size:32px;margin-bottom:7px;display:block;transition:transform 0.2s}
+.goal-card.sel .g-ico{transform:scale(1.12)}
+.g-name{font-size:13px;font-weight:700}
+.g-sub{font-size:11px;color:var(–gray);margin-top:3px}
+
+/* FORM */
+.form-group{margin-bottom:17px}
+.form-label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(–dark);margin-bottom:7px}
+.form-input{
+width:100%;padding:13px 15px;border:2px solid #f0f0f0;border-radius:12px;
+font-size:15px;font-family:‘Outfit’,sans-serif;background:var(–white);
+color:var(–dark);outline:none;transition:border-color 0.2s;
+}
+.form-input:focus{border-color:var(–g2)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.radio-grp{display:flex;gap:8px}
+.r-btn{
+flex:1;padding:12px 8px;border:2px solid #f0f0f0;border-radius:12px;
+text-align:center;cursor:pointer;font-size:13px;font-weight:600;
+transition:all 0.2s;background:var(–white);
+}
+.r-btn.sel{border-color:var(–g2);background:var(–gpale);color:var(–g2)}
+.bmi-box{
+background:linear-gradient(135deg,var(–g1),var(–g2));color:white;
+padding:15px 18px;border-radius:14px;display:flex;justify-content:space-between;
+align-items:center;margin-top:12px;
+}
+.bmi-n{font-family:‘Syne’,sans-serif;font-size:30px;font-weight:800}
+.bmi-l{font-size:11px;opacity:0.65;margin-top:2px}
+.bmi-cat{background:rgba(255,255,255,0.18);padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600}
+
+/* PLAN */
+.food-toggle{display:flex;background:#f0f0f0;border-radius:100px;padding:4px;margin-bottom:22px}
+.ft-btn{
+flex:1;padding:10px;border-radius:100px;text-align:center;cursor:pointer;
+font-size:13px;font-weight:700;transition:all 0.2s;color:var(–gray);
+}
+.ft-btn.sel{background:var(–white);color:var(–g2);box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+
+.plan-cards{display:flex;flex-direction:column;gap:11px;margin-bottom:24px}
+.plan-card{
+background:var(–white);border:2px solid #f0f0f0;border-radius:16px;
+padding:16px;cursor:pointer;transition:all 0.2s;
+display:flex;align-items:center;gap:13px;
+}
+.plan-card:hover,.plan-card.sel{border-color:var(–g2);background:var(–gpale)}
+.plan-ico{
+width:50px;height:50px;background:linear-gradient(135deg,var(–g2),var(–g3));
+border-radius:13px;display:flex;align-items:center;justify-content:center;
+font-size:22px;flex-shrink:0;
+}
+.plan-inf{flex:1}
+.plan-nm{font-family:‘Syne’,sans-serif;font-size:15px;font-weight:800}
+.plan-ds{font-size:12px;color:var(–gray);margin-top:2px}
+.plan-right{text-align:right}
+.plan-bdg{
+font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;
+text-transform:uppercase;letter-spacing:0.5px;color:white;display:inline-block;margin-bottom:5px;
+}
+.plan-pr{font-family:‘Syne’,sans-serif;font-size:20px;font-weight:800;color:var(–g2)}
+
+.price-preview-box{
+background:var(–g1);color:white;padding:16px 18px;border-radius:14px;
+display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;
+}
+.pp-lbl{font-size:13px;opacity:0.65}
+.pp-pr{font-family:‘Syne’,sans-serif;font-size:28px;font-weight:800;color:var(–o2)}
+.pp-note{font-size:11px;opacity:0.5;margin-top:2px}
+
+/* DELIVERY */
+.summary-box{background:var(–white);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(–shadow)}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f5f5f5;font-size:14px}
+.sum-row:last-child{border:none}
+.sum-lbl{color:var(–gray)}
+.sum-val{font-weight:600}
+.sum-total-val{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;color:var(–g2)}
+.delivery-note{
+background:var(–glight);border:1px solid rgba(45,106,79,0.15);
+border-radius:12px;padding:12px 14px;font-size:13px;color:var(–g2);
+margin-bottom:18px;display:flex;gap:8px;align-items:flex-start;
+}
+
+/* CART SCREEN */
+#s-cart{background:var(–cream)}
+.cart-items{flex:1;padding:18px 18px 32px}
+.cart-item{
+background:var(–white);border-radius:14px;padding:14px;
+display:flex;gap:12px;align-items:center;margin-bottom:11px;
+box-shadow:var(–shadow);
+}
+.ci-thumb{
+width:60px;height:60px;border-radius:10px;overflow:hidden;flex-shrink:0;
+background:var(–glight);display:flex;align-items:center;justify-content:center;font-size:26px;
+}
+.ci-thumb img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1}
+.ci-name{font-weight:700;font-size:14px}
+.ci-meta{font-size:11px;color:var(–gray);margin-top:3px}
+.ci-price{font-family:‘Syne’,sans-serif;font-size:16px;font-weight:800;color:var(–g2)}
+.ci-del{background:none;border:none;color:#ef4444;font-size:20px;cursor:pointer;padding:4px;line-height:1}
+.cart-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;gap:12px}
+.cart-empty-state .big-emo{font-size:64px}
+.cart-empty-state p{font-size:15px;color:var(–gray)}
+.cart-total-bar{
+padding:16px 18px;background:var(–white);border-top:1px solid #f0f0f0;
+display:flex;align-items:center;justify-content:space-between;
+}
+.ct-label{font-size:13px;color:var(–gray)}
+.ct-price{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;color:var(–g2)}
+
+/* SUCCESS */
+#s-success{
+background:linear-gradient(160deg,#071a0f,#0f2d1c,#1a3d2b,#2d6a4f);
+align-items:center;justify-content:center;text-align:center;padding:40px 24px;
+}
+.success-ring{
+width:100px;height:100px;background:linear-gradient(135deg,var(–o1),#ff6835);
+border-radius:50%;display:flex;align-items:center;justify-content:center;
+font-size:46px;margin:0 auto 24px;animation:popIn 0.5s ease;
+box-shadow:0 12px 40px rgba(232,93,4,0.4);
+}
+@keyframes popIn{0%{transform:scale(0);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+.suc-title{font-family:‘Syne’,sans-serif;font-size:32px;font-weight:800;color:white;margin-bottom:10px}
+.suc-sub{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:30px;max-width:300px;margin-left:auto;margin-right:auto}
+.suc-contact{
+background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+border-radius:16px;padding:18px;margin-bottom:22px;width:100%;max-width:300px;
+}
+.suc-contact p{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.suc-contact a{color:var(–o2);font-weight:700;font-size:16px;text-decoration:none;display:block;margin-bottom:5px}
+.suc-contact span{font-size:12px;color:rgba(255,255,255,0.4)}
+.wa-btn{
+background:#25D366;color:white;border:none;
+padding:14px 28px;border-radius:100px;font-size:14px;font-weight:700;
+cursor:pointer;font-family:‘Outfit’,sans-serif;
+display:inline-flex;align-items:center;gap:8px;
+box-shadow:0 6px 20px rgba(37,211,102,0.35);
+}
+
+select.form-input{
+appearance:none;
+background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%236b7280’ stroke-width=‘2’ fill=‘none’/%3E%3C/svg%3E”);
+background-repeat:no-repeat;background-position:right 15px center;padding-right:38px;
+}
+textarea.form-input{resize:none}
+
+.fade-in{animation:fadeUp 0.35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
+</head>
+<body>
+
+<!-- ════ HOME ════ -->
+
+<div id="s-home" class="screen active">
+  <div class="home-hero">
+    <nav class="top-nav">
+      <div class="logo">Fit<em>2</em>Eat</div>
+      <a href="tel:6204524077" class="call-pill">📞 Call Now</a>
+    </nav>
+    <div class="hero-body">
+      <div class="hero-pill">— WE SERVE, WE CARE —</div>
+      <div style="font-size:13px;font-weight:700;color:var(--o2);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">PREMIUM MEALS</div>
+      <h1 class="hero-h1">Built For <em>Your Goals</em></h1>
+      <div class="hero-tagline">Clean Ingredients. Perfect Nutrition. Delivered.</div>
+
+```
+  <!-- 4 icons row like packaging -->
+  <div style="display:flex;justify-content:space-between;margin:20px 0 24px;padding:16px;background:rgba(255,255,255,0.06);border-radius:14px;border:1px solid rgba(255,255,255,0.08);">
+    <div style="text-align:center;flex:1">
+      <div style="font-size:22px;margin-bottom:5px;">🏋️</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;line-height:1.3">HIGH<br>PROTEIN</div>
+    </div>
+    <div style="text-align:center;flex:1">
+      <div style="font-size:22px;margin-bottom:5px;">🔥</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;line-height:1.3">CALORIE<br>COUNTED</div>
+    </div>
+    <div style="text-align:center;flex:1">
+      <div style="font-size:22px;margin-bottom:5px;">🌿</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;line-height:1.3">CLEAN<br>INGREDIENTS</div>
+    </div>
+    <div style="text-align:center;flex:1">
+      <div style="font-size:22px;margin-bottom:5px;">⏱️</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;line-height:1.3">ON TIME<br>DELIVERY</div>
+    </div>
+  </div>
+
+  <!-- CHOOSE YOUR PLAN -->
+  <div style="text-align:center;margin-bottom:14px;">
+    <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:3px;text-transform:uppercase;">─── CHOOSE YOUR PLAN ───</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px;">
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 8px;text-align:center;">
+      <div style="font-size:16px;margin-bottom:4px;">📅</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--o2);margin-bottom:3px;">3 DAYS</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:6px;">3 Days. Real Results.</div>
+      <div style="font-size:11px;color:#74c69d;font-weight:700;">🥦 ₹849</div>
+      <div style="font-size:11px;color:#ff6b6b;font-weight:700;">🍗 ₹999</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.3);border-radius:12px;padding:12px 8px;text-align:center;">
+      <div style="font-size:16px;margin-bottom:4px;">📅</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--o2);margin-bottom:3px;">WEEKLY</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:6px;">6 Meals. Stay Consistent.</div>
+      <div style="font-size:11px;color:#74c69d;font-weight:700;">🥦 ₹2,049</div>
+      <div style="font-size:11px;color:#ff6b6b;font-weight:700;">🍗 ₹2,400</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 8px;text-align:center;">
+      <div style="font-size:16px;margin-bottom:4px;">📅</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--o2);margin-bottom:3px;">MONTHLY</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:6px;">24 Meals. Transform.</div>
+      <div style="font-size:11px;color:#74c69d;font-weight:700;">🥦 ₹7,649</div>
+      <div style="font-size:11px;color:#ff6b6b;font-weight:700;">🍗 ₹9,000</div>
+    </div>
+  </div>
+
+  <!-- CHOOSE YOUR GOAL PLAN -->
+  <div style="text-align:center;margin-bottom:14px;">
+    <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:3px;text-transform:uppercase;">🌿 CHOOSE YOUR GOAL PLAN 🌿</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:14px 10px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">💪</div>
+      <div style="font-size:12px;font-weight:800;color:var(--o2);text-transform:uppercase;margin-bottom:4px;">Muscles Gain Diet</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.45);line-height:1.4;">High Protein Meals for Lean Muscle & Strength</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:14px 10px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">🔥</div>
+      <div style="font-size:12px;font-weight:800;color:var(--o2);text-transform:uppercase;margin-bottom:4px;">Fat Loss Diet</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.45);line-height:1.4;">Calorie Controlled Meals for Effective Fat Loss</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:14px 10px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">🏢</div>
+      <div style="font-size:12px;font-weight:800;color:var(--o2);text-transform:uppercase;margin-bottom:4px;">High Protein Office Meal Diet</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.45);line-height:1.4;">Balanced & Filling Meals for a Productive Workday</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:14px 10px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">🌸</div>
+      <div style="font-size:12px;font-weight:800;color:var(--o2);text-transform:uppercase;margin-bottom:4px;">PCOS-Friendly Fat Loss Diet</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.45);line-height:1.4;">Hormone-Friendly Meals for Sustainable Weight Loss</div>
+    </div>
+  </div>
+
+  <!-- FRESH + MEALS DELIVERED -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;">
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(116,198,157,0.2);border-radius:12px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:4px;">🌿</div>
+      <div style="font-size:11px;font-weight:800;color:white;">100% FRESH DAILY</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:3px;">Zero Cold Storage · Rotation Meal</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(116,198,157,0.2);border-radius:12px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:4px;">🍱</div>
+      <div style="font-size:11px;font-weight:800;color:white;">100+ MEALS DELIVERED</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:3px;">Trusted by Gurgaon Professionals</div>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <button class="cta-primary" onclick="goTo('s-goal')">Start Your 3-Day Trial →</button>
+    <button class="cta-menu" onclick="goTo('s-menu')">Menu</button>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ════ MENU ════ -->
+
+<div id="s-menu" class="screen">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('s-home')">←</button>
+    <div class="ph-logo">Fit<em>2</em>Eat</div>
+    <button class="cart-ico-btn" onclick="goTo('s-cart')">
+      🛒<span class="cart-badge" id="cart-count">0</span>
+    </button>
+  </div>
+  <div class="meal-tabs">
+    <div class="tab active" onclick="switchTab('breakfast',this)">💪 Muscle Gain</div>
+    <div class="tab" onclick="switchTab('lunch',this)">🔥 Fat Loss</div>
+    <div class="tab" onclick="switchTab('dinner',this)">🏢 Office Meal</div>
+    <div class="tab" onclick="switchTab('pcos',this)">🌸 PCOS Diet</div>
+  </div>
+
+  <!-- BREAKFAST -->
+
+  <div id="tab-breakfast" class="menu-section active">
+    <div class="sec-head">
+      <span class="sec-emo">💪</span>
+      <div><div class="sec-title">Muscle Gain Diet</div><div class="sec-sub">High calorie, high protein meals for lean muscle & strength</div></div>
+    </div>
+    <div class="meal-cards-list" id="list-breakfast"></div>
+  </div>
+
+  <!-- LUNCH -->
+
+  <div id="tab-lunch" class="menu-section">
+    <div class="sec-head">
+      <span class="sec-emo">🔥</span>
+      <div><div class="sec-title">Fat Loss Diet</div><div class="sec-sub">Low calorie, high protein meals for effective fat loss</div></div>
+    </div>
+    <div class="meal-cards-list" id="list-lunch"></div>
+  </div>
+
+  <!-- DINNER -->
+
+  <div id="tab-dinner" class="menu-section">
+    <div class="sec-head">
+      <span class="sec-emo">🏢</span>
+      <div><div class="sec-title">High Protein Office Meal</div><div class="sec-sub">Balanced & filling meals for a productive workday</div></div>
+    </div>
+    <div class="meal-cards-list" id="list-dinner"></div>
+  </div>
+
+  <!-- OFFICE -->
+
+  <div id="tab-office" class="menu-section">
+    <div class="sec-head">
+      <span class="sec-emo">🏢</span>
+      <div><div class="sec-title">Office Meal</div><div class="sec-sub">High Protein · Low Calorie · Filling</div></div>
+    </div>
+    <div class="meal-cards-list" id="list-office"></div>
+  </div>
+
+  <!-- PCOS/PCOD -->
+
+  <div id="tab-pcos" class="menu-section">
+    <div class="sec-head">
+      <span class="sec-emo">🌸</span>
+      <div><div class="sec-title">PCOS Friendly Fat Loss Diet</div><div class="sec-sub">Hormone-friendly clean meals for sustainable weight loss</div></div>
+    </div>
+    <div class="meal-cards-list" id="list-pcos"></div>
+  </div>
+</div>
+
+<!-- ════ CART ════ -->
+
+<div id="s-cart" class="screen">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('s-menu')">←</button>
+    <div class="ph-logo">Fit<em>2</em>Eat</div>
+    <div class="step-tag" id="cart-tag">0 items</div>
+  </div>
+  <div id="cart-body" class="cart-items"></div>
+  <div id="cart-empty" class="cart-empty-state">
+    <div class="big-emo">🛒</div>
+    <p>Your cart is empty.<br>Add meals from the menu!</p>
+    <button class="btn-full" style="max-width:220px" onclick="goTo('s-menu')">Browse Menu</button>
+  </div>
+  <div id="cart-bottom" style="display:none">
+    <div class="cart-total-bar">
+      <div><div class="ct-label">Total</div><div class="ct-price" id="cart-total">₹0</div></div>
+      <button class="btn-full" style="max-width:180px" onclick="goTo('s-goal')">Subscribe →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ GOAL ════ -->
+
+<div id="s-goal" class="screen">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('s-home')">←</button>
+    <div class="ph-logo">Fit<em>2</em>Eat</div>
+    <div class="step-tag">Step 1 / 5</div>
+  </div>
+  <div class="prog"><div class="prog-f" style="width:20%"></div></div>
+  <div class="flow-content fade-in">
+    <div class="flow-title">What's Your Goal? 🎯</div>
+    <p class="flow-sub">We'll build your meal plan around your personal health target.</p>
+    <div class="goal-grid">
+      <div class="goal-card" onclick="selGoal(this,'Muscle Gain Diet')">
+        <span class="g-ico">💪</span>
+        <div class="g-name">Muscles Gain Diet</div>
+        <div class="g-sub">High Protein for Lean Muscle & Strength</div>
+      </div>
+      <div class="goal-card" onclick="selGoal(this,'Fat Loss Diet')">
+        <span class="g-ico">🔥</span>
+        <div class="g-name">Fat Loss Diet</div>
+        <div class="g-sub">Calorie Controlled Meals for Effective Fat Loss</div>
+      </div>
+      <div class="goal-card" onclick="selGoal(this,'High Protein Office Meal')">
+        <span class="g-ico">🏢</span>
+        <div class="g-name">High Protein Office Meal Diet</div>
+        <div class="g-sub">Balanced & Filling Meals for a Productive Workday</div>
+      </div>
+      <div class="goal-card" onclick="selGoal(this,'PCOS Friendly Fat Loss')">
+        <span class="g-ico">🌸</span>
+        <div class="g-name">PCOS-Friendly Fat Loss Diet</div>
+        <div class="g-sub">Hormone-Friendly Meals for Sustainable Weight Loss</div>
+      </div>
+    </div>
+  </div>
+  <div class="sticky-cta">
+    <button class="btn-full" id="btn-goal" disabled onclick="goTo('s-info')">Continue →</button>
+  </div>
+</div>
+
+<!-- ════ INFO ════ -->
+
+<div id="s-info" class="screen">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('s-goal')">←</button>
+    <div class="ph-logo">Fit<em>2</em>Eat</div>
+    <div class="step-tag">Step 2 / 5</div>
+  </div>
+  <div class="prog"><div class="prog-f" style="width:40%"></div></div>
+  <div class="flow-content fade-in">
+    <div class="flow-title">Your Body Profile 📋</div>
+    <p class="flow-sub">Helps us calculate your exact calorie & nutrition needs.</p>
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input class="form-input" id="inp-name" type="text" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Gender</label>
+      <div class="radio-grp">
+        <div class="r-btn" onclick="selRadio(this,'gender','Male')">👨 Male</div>
+        <div class="r-btn" onclick="selRadio(this,'gender','Female')">👩 Female</div>
+        <div class="r-btn" onclick="selRadio(this,'gender','Other')">🧑 Other</div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Age</label>
+        <input class="form-input" id="inp-age" type="number" placeholder="Years" oninput="calcBMI()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Height (cm)</label>
+        <input class="form-input" id="inp-height" type="number" placeholder="e.g. 170" oninput="calcBMI()">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Weight (kg)</label>
+      <input class="form-input" id="inp-weight" type="number" placeholder="e.g. 70" oninput="calcBMI()">
+    </div>
+    <div id="bmi-display" style="display:none">
+      <div class="bmi-box">
+        <div><div class="bmi-n" id="bmi-val">--</div><div class="bmi-l">Your BMI</div></div>
+        <div class="bmi-cat" id="bmi-cat">--</div>
+      </div>
+    </div>
+  </div>
+  <div class="sticky-cta">
+    <button class="btn-full" onclick="goTo('s-plan')">Continue →</button>
+  </div>
+</div>
+
+<!-- ════ PLAN ════ -->
+
+<div id="s-plan" class="screen">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('s-info')">←</button>
+    <div class="ph-logo">Fit<em>2</em>Eat</div>
+    <div class="step-tag">Step 3 / 5</div>
+  </div>
+  <div class="prog"><div class="prog-f" style="width:60%"></div></div>
+  <div class="flow-content fade-in">
+    <div class="flow-title">Choose Your Plan 📦</div>
+    <p class="flow-sub">Select food type and subscription duration.</p>
+
+```
+<div class="form-label" style="margin-bottom:10px">Food Preference</div>
+<div class="food-toggle" id="food-toggle">
+  <div class="ft-btn sel" onclick="selFood(this,'Vegetarian')">🥦 Vegetarian</div>
+  <div class="ft-btn" onclick="selFood(this,'Non-Vegetarian')">🍗 Non-Vegetarian</div>
+</div>
+
+<div class="form-label" style="margin-bottom:10px">Subscription</div>
+<div class="plan-cards" id="plan-cards">
+  <!-- rendered by JS -->
+</div>
+
+<div class="price-preview-box">
+  <div><div class="pp-lbl">Total Amount</div><div class="pp-pr" id="pp-price">Select a plan</div><div class="pp-note" id="pp-note"></div></div>
+  <div style="font-size:32px">🧾</div>
+</div>
+
+<div class="form-group">
+  <label class="form-label">Meals per day</label>
+  <div class="radio-grp">
+    <div class="r-btn" onclick="selRadio(this,'meals','1 Meal')">1 Meal</div>
+    <div class="r-btn" onclick="selRadio(this,'meals','2 Meals')">2 Meals</div>
+    <div class="r-btn" onclick="selRadio(this,'meals','3 Meals')">3 Meals</div>
+  </div>
+</div>
+```
+
+  </div>
+  <div class="sticky-cta">
+    <button class="btn-full" onclick="goTo('s-delivery')">Continue →</button>
+  </div>
+</div>
+
+<!-- ════ DELIVERY ════ -->
+
+<div id="s-delivery" class="screen">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('s-plan')">←</button>
+    <div class="ph-logo">Fit<em>2</em>Eat</div>
+    <div class="step-tag">Step 4 / 5</div>
+  </div>
+  <div class="prog"><div class="prog-f" style="width:80%"></div></div>
+  <div class="flow-content fade-in">
+    <div class="flow-title">Delivery Details 🚚</div>
+    <p class="flow-sub">Where should we deliver your healthy meals?</p>
+    <div class="delivery-note">🚚 Currently delivering in <strong>Sector 57, Gurgaon</strong> and nearby areas.</div>
+
+```
+<div class="form-group">
+  <label class="form-label">Full Address</label>
+  <textarea class="form-input" id="inp-address" rows="3" placeholder="House/Flat, Street, Landmark..."></textarea>
+</div>
+<div class="form-row">
+  <div class="form-group">
+    <label class="form-label">Sector / Area</label>
+    <input class="form-input" id="inp-sector" type="text" placeholder="Sector 57">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Pincode</label>
+    <input class="form-input" id="inp-pin" type="text" placeholder="122003">
+  </div>
+</div>
+<div class="form-group">
+  <label class="form-label">Phone Number</label>
+  <input class="form-input" id="inp-phone" type="tel" placeholder="+91 XXXXX XXXXX">
+</div>
+<div class="form-group">
+  <label class="form-label">Delivery Start Date</label>
+  <input class="form-input" id="inp-date" type="date">
+</div>
+<div class="form-group">
+  <label class="form-label">Order Notes (optional)</label>
+  <textarea class="form-input" id="inp-notes" rows="2" placeholder="Allergies, spice level, preferences..."></textarea>
+</div>
+
+<div class="flow-title" style="font-size:20px;margin-bottom:14px">Order Summary</div>
+<div class="summary-box">
+  <div class="sum-row"><span class="sum-lbl">Goal</span><span class="sum-val" id="sum-goal">—</span></div>
+  <div class="sum-row"><span class="sum-lbl">Food Type</span><span class="sum-val" id="sum-food">—</span></div>
+  <div class="sum-row"><span class="sum-lbl">Plan</span><span class="sum-val" id="sum-plan">—</span></div>
+  <div class="sum-row"><span class="sum-lbl">Meals/Day</span><span class="sum-val" id="sum-meals">—</span></div>
+  <div class="sum-row"><span class="sum-lbl">Delivery</span><span class="sum-val" style="color:var(--g2)">FREE 🎉</span></div>
+  <div class="sum-row sum-total-row"><span class="sum-lbl" style="font-weight:700;font-size:15px">Total</span><span class="sum-total-val" id="sum-total">—</span></div>
+</div>
+
+<div class="form-group">
+  <label class="form-label">Payment Method</label>
+  <select class="form-input" id="inp-payment">
+    <option value="">Select payment method</option>
+    <option>UPI / GPay / PhonePe</option>
+    <option>Cash on Delivery</option>
+    <option>Bank Transfer / NEFT</option>
+    <option>Paytm</option>
+  </select>
+</div>
+```
+
+  </div>
+  <div class="sticky-cta">
+    <button class="btn-full" onclick="submitOrder()">Place Order →</button>
+  </div>
+</div>
+
+<!-- ════ SUCCESS ════ -->
+
+<div id="s-success" class="screen">
+  <div class="success-ring">🎉</div>
+  <div class="suc-title">Order Placed!</div>
+  <p class="suc-sub">Your customized meal plan is confirmed. Our team will contact you shortly to confirm your delivery schedule.</p>
+  <div class="suc-contact">
+    <p>Contact Us</p>
+    <a href="tel:6204524077">+91 6204524077</a>
+    <span>darrenkarzai@gmail.com</span>
+  </div>
+  <button class="wa-btn" onclick="openWA()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat on WhatsApp
+  </button>
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE ──
+const state = {
+  goal:'', gender:'', meals:'', food:'Vegetarian',
+  plan:'', planPrice:0
+};
+let cart = [];
+
+// ── PRICING ──
+const PRICES = {
+  'Vegetarian':   { trial:849,  weekly:2049, monthly:7649 },
+  'Non-Vegetarian':{ trial:999, weekly:2400, monthly:9000 }
+};
+
+// ── MENU DATA ──
+const MENU = {
+  breakfast: [
+    { id:'g1', name:'Muscle Gain Diet', desc:'High calorie, high protein meals · Breakfast: Oats + Whey / Omelette · Lunch: Chicken/Paneer + Rice + Veggies · Dinner: High Protein + Roti', tags:['High Protein','High Calorie','Lean Muscle'], emoji:'💪', type:'veg/nonveg', origPrice:'399', offerPrice:'299' },
+    { id:'g2', name:'Fat Loss Diet', desc:'Low calorie, high protein meals · Breakfast: Chilla / Eggs + Salad · Lunch: Lean Protein + Brown Rice · Dinner: Light Protein + Veggies', tags:['Low Calorie','High Protein','Fat Burn'], emoji:'🔥', type:'veg/nonveg', origPrice:'399', offerPrice:'299' },
+    { id:'g3', name:'High Protein Office Meal', desc:'Balanced meals for professionals · Lunch Box: Protein + Roti/Rice + Veg · Easy ready-to-eat meal', tags:['Balanced','Filling','Office Ready'], emoji:'🏢', type:'veg/nonveg', origPrice:'349', offerPrice:'279' },
+    { id:'g4', name:'PCOS Friendly Fat Loss Diet', desc:'Hormone-friendly clean meals · Breakfast: Low GI + Protein · Lunch: Balanced Meal · Dinner: Light Protein + Fiber', tags:['Hormone Friendly','Low GI','Weight Loss'], emoji:'🌸', type:'veg/nonveg', origPrice:'449', offerPrice:'329' },
+  ],
+  lunch: [
+    { id:'g1b', name:'Muscle Gain Diet', desc:'High calorie, high protein meals · Breakfast: Oats + Whey / Omelette · Lunch: Chicken/Paneer + Rice + Veggies · Dinner: High Protein + Roti', tags:['High Protein','High Calorie','Lean Muscle'], emoji:'💪', type:'veg/nonveg', origPrice:'399', offerPrice:'299' },
+    { id:'g2b', name:'Fat Loss Diet', desc:'Low calorie, high protein meals · Breakfast: Chilla / Eggs + Salad · Lunch: Lean Protein + Brown Rice · Dinner: Light Protein + Veggies', tags:['Low Calorie','High Protein','Fat Burn'], emoji:'🔥', type:'veg/nonveg', origPrice:'399', offerPrice:'299' },
+    { id:'g3b', name:'High Protein Office Meal', desc:'Balanced meals for professionals · Lunch Box: Protein + Roti/Rice + Veg · Easy ready-to-eat meal', tags:['Balanced','Filling','Office Ready'], emoji:'🏢', type:'veg/nonveg', origPrice:'349', offerPrice:'279' },
+    { id:'g4b', name:'PCOS Friendly Fat Loss Diet', desc:'Hormone-friendly clean meals · Breakfast: Low GI + Protein · Lunch: Balanced Meal · Dinner: Light Protein + Fiber', tags:['Hormone Friendly','Low GI','Weight Loss'], emoji:'🌸', type:'veg/nonveg', origPrice:'449', offerPrice:'329' },
+  ],
+  dinner: [
+    { id:'g1c', name:'Muscle Gain Diet', desc:'High calorie, high protein meals · Breakfast: Oats + Whey / Omelette · Lunch: Chicken/Paneer + Rice + Veggies · Dinner: High Protein + Roti', tags:['High Protein','High Calorie','Lean Muscle'], emoji:'💪', type:'veg/nonveg', origPrice:'399', offerPrice:'299' },
+    { id:'g2c', name:'Fat Loss Diet', desc:'Low calorie, high protein meals · Breakfast: Chilla / Eggs + Salad · Lunch: Lean Protein + Brown Rice · Dinner: Light Protein + Veggies', tags:['Low Calorie','High Protein','Fat Burn'], emoji:'🔥', type:'veg/nonveg', origPrice:'399', offerPrice:'299' },
+    { id:'g3c', name:'High Protein Office Meal', desc:'Balanced meals for professionals · Lunch Box: Protein + Roti/Rice + Veg · Easy ready-to-eat meal', tags:['Balanced','Filling','Office Ready'], emoji:'🏢', type:'veg/nonveg', origPrice:'349', offerPrice:'279' },
+    { id:'g4c', name:'PCOS Friendly Fat Loss Diet', desc:'Hormone-friendly clean meals · Breakfast: Low GI + Protein · Lunch: Balanced Meal · Dinner: Light Protein + Fiber', tags:['Hormone Friendly','Low GI','Weight Loss'], emoji:'🌸', type:'veg/nonveg', origPrice:'449', offerPrice:'329' },
+  ],
+  office: [
+    { id:'o1', name:'High Protein Office Meal', desc:'Balanced meals for professionals · Lunch Box: Protein + Roti/Rice + Veg · Easy ready-to-eat meal', tags:['Balanced','Filling','Office Ready'], emoji:'🏢', type:'veg/nonveg', origPrice:'349', offerPrice:'279' },
+  ],
+  pcos: [
+    { id:'p1', name:'PCOS Friendly Fat Loss Diet', desc:'Hormone-friendly clean meals · Breakfast: Low GI + Protein · Lunch: Balanced Meal · Dinner: Light Protein + Fiber', tags:['Hormone Friendly','Low GI','Weight Loss'], emoji:'🌸', type:'veg/nonveg', origPrice:'449', offerPrice:'329' },
+  ]
+};
+
+// ── RENDER MENU ──
+function renderMenu() {
+  Object.keys(MENU).forEach(cat => {
+    const el = document.getElementById('list-'+cat);
+    el.innerHTML = MENU[cat].map(item => `
+      <div class="meal-card">
+        <div class="meal-thumb">
+          <span class="thumb-emoji">${item.emoji}</span>
+          <span class="meal-veg-tag">🟡 Veg / Non-Veg</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-name">${item.name}</div>
+          <div class="meal-desc">${item.desc.split(' · ').map(line => '<div style="margin-bottom:3px">• ' + line + '</div>').join('')}</div>
+          <div class="meal-tags">${item.tags.map((t,i) => `<span class="m-tag ${i===0?'orange':i===2?'blue':''}">${t}</span>`).join('')}</div>
+          <div class="meal-foot">
+            <div class="meal-price-wrap">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="font-size:13px;color:var(--gray);text-decoration:line-through;font-weight:500">₹${item.origPrice}/meal</div>
+                <div class="m-price" style="color:var(--o1)">₹${item.offerPrice} <span style="font-size:11px;font-weight:500;color:var(--g2)">(Offer)</span></div>
+              </div>
+              <div class="m-price-sub">per meal</div>
+            </div>
+            <button class="add-to-cart" id="abtn-${item.id}" onclick="addToCart('${item.id}','${cat}')">Subscribe →</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  });
+}
+
+// ── CART ──
+function addToCart(id, cat) {
+  const item = MENU[cat].find(i => i.id === id);
+  cart.push({...item, cat});
+  updateCartUI();
+  const btn = document.getElementById('abtn-'+id);
+  btn.textContent = '✓ Added';
+  btn.classList.add('added');
+  setTimeout(() => { btn.textContent = '+ Add'; btn.classList.remove('added'); }, 1500);
+  showToast(`${item.emoji} ${item.name} added to cart!`);
+}
+
+function updateCartUI() {
+  const count = cart.length;
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-tag').textContent = count + ' item' + (count !== 1 ? 's' : '');
+  const total = cart.reduce((s, i) => s + 159, 0);
+  document.getElementById('cart-total').textContent = '₹' + total.toLocaleString('en-IN');
+
+  const body = document.getElementById('cart-body');
+  const empty = document.getElementById('cart-empty');
+  const bottom = document.getElementById('cart-bottom');
+
+  if (count === 0) {
+    body.innerHTML = '';
+    empty.style.display = 'flex';
+    bottom.style.display = 'none';
+  } else {
+    empty.style.display = 'none';
+    bottom.style.display = 'block';
+    body.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <div class="ci-thumb"><span style="font-size:26px">${item.emoji}</span></div>
+        <div class="ci-info">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-meta">${item.cat.charAt(0).toUpperCase()+item.cat.slice(1)} · ₹159</div>
+        </div>
+        <div class="ci-price">₹159</div>
+        <button class="ci-del" onclick="removeFromCart(${idx})">×</button>
+      </div>
+    `).join('');
+  }
+}
+
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  updateCartUI();
+}
+
+// ── PLAN CARDS ──
+function renderPlans() {
+  const f = state.food;
+  const p = PRICES[f] || PRICES['Vegetarian'];
+  const plans = [
+    { key:'trial', ico:'🎯', name:'3 Days Trial', days:'Try before you commit', badge:'TRIAL', badgeColor:'#f59e0b', price: p.trial },
+    { key:'weekly', ico:'📅', name:'2 Weeks', days:'Build the habit · 6 meals', badge:'POPULAR', badgeColor:'var(--g2)', price: p.weekly },
+    { key:'monthly', ico:'🏆', name:'4 Weeks', days:'See real results · 24 meals', badge:'BEST VALUE', badgeColor:'#7c3aed', price: p.monthly },
+  ];
+  document.getElementById('plan-cards').innerHTML = plans.map(pl => `
+    <div class="plan-card ${state.plan === pl.key ? 'sel' : ''}" onclick="selPlan(this,'${pl.key}',${pl.price})">
+      <div class="plan-ico">${pl.ico}</div>
+      <div class="plan-inf">
+        <div class="plan-nm">${pl.name}</div>
+        <div class="plan-ds">${pl.days}</div>
+      </div>
+      <div class="plan-right">
+        <span class="plan-bdg" style="background:${pl.badgeColor}">${pl.badge}</span>
+        <div class="plan-pr">₹${pl.price.toLocaleString('en-IN')}</div>
+      </div>
+    </div>
+  `).join('');
+  updatePricePreview();
+}
+
+function selFood(el, val) {
+  document.querySelectorAll('.ft-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  state.food = val;
+  state.plan = ''; state.planPrice = 0;
+  renderPlans();
+}
+
+function selPlan(el, key, price) {
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  state.plan = key; state.planPrice = price;
+  updatePricePreview();
+}
+
+function updatePricePreview() {
+  const el = document.getElementById('pp-price');
+  const note = document.getElementById('pp-note');
+  if (state.planPrice) {
+    el.textContent = '₹' + state.planPrice.toLocaleString('en-IN');
+    note.textContent = state.food + ' Plan';
+  } else {
+    el.textContent = 'Select a plan';
+    note.textContent = '';
+  }
+}
+
+// ── SUMMARY ──
+function updateSummary() {
+  document.getElementById('sum-goal').textContent = state.goal || '—';
+  document.getElementById('sum-food').textContent = state.food || '—';
+  const planNames = { trial:'3 Days Trial', weekly:'2 Weeks', monthly:'4 Weeks' };
+  document.getElementById('sum-plan').textContent = state.plan ? planNames[state.plan] : '—';
+  document.getElementById('sum-meals').textContent = state.meals || '—';
+  document.getElementById('sum-total').textContent = state.planPrice ? '₹' + state.planPrice.toLocaleString('en-IN') : '—';
+}
+
+// ── HELPERS ──
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 's-delivery') updateSummary();
+  if (id === 's-plan') renderPlans();
+  window.scrollTo(0, 0);
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+function selGoal(el, val) {
+  document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  state.goal = val;
+  document.getElementById('btn-goal').disabled = false;
+}
+
+function selRadio(el, group, val) {
+  el.closest('.radio-grp').querySelectorAll('.r-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  state[group] = val;
+}
+
+function calcBMI() {
+  const h = parseFloat(document.getElementById('inp-height').value);
+  const w = parseFloat(document.getElementById('inp-weight').value);
+  if (h && w) {
+    const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+    const cat = bmi < 18.5 ? 'Underweight' : bmi < 25 ? '✓ Healthy' : bmi < 30 ? 'Overweight' : 'Obese';
+    document.getElementById('bmi-val').textContent = bmi;
+    document.getElementById('bmi-cat').textContent = cat;
+    document.getElementById('bmi-display').style.display = 'block';
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function submitOrder() {
+  const name = document.getElementById('inp-name').value;
+  const phone = document.getElementById('inp-phone').value;
+  const address = document.getElementById('inp-address').value;
+  const sector = document.getElementById('inp-sector').value;
+  const pin = document.getElementById('inp-pin').value;
+  const date = document.getElementById('inp-date').value;
+  const notes = document.getElementById('inp-notes').value;
+  const payment = document.getElementById('inp-payment').value;
+  Object.assign(state, { name, phone, address, sector, pin, date, notes, payment });
+  goTo('s-success');
+}
+
+function openWA() {
+  const planNames = { trial:'3 Days Trial', weekly:'2 Weeks (6 meals)', monthly:'4 Weeks (24 meals)' };
+  const msg = `Hi Fit2Eat! 🌿\n\n*New Order*\n👤 Name: ${state.name}\n🎯 Goal: ${state.goal}\n🥗 Food: ${state.food}\n📦 Plan: ${planNames[state.plan] || state.plan}\n🍽 Meals/day: ${state.meals}\n💰 Total: ₹${state.planPrice?.toLocaleString('en-IN')}\n📍 Address: ${state.address}, ${state.sector} - ${state.pin}\n📱 Phone: ${state.phone}\n📅 Start: ${state.date}\n💳 Payment: ${state.payment}${state.notes ? '\n📝 Notes: ' + state.notes : ''}`;
+  window.open('https://wa.me/916204524077?text=' + encodeURIComponent(msg));
+}
+
+// ── INIT ──
+document.getElementById('inp-date').min = new Date().toISOString().split('T')[0];
+renderMenu();
+updateCartUI();
+renderPlans();
+</script>
+
+</body>
+</html>
