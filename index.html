@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Fit2Eat — Healthy Food Delivery Gurgaon</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#060c06;--bg2:#0d1a0d;--bg3:#142414;
+  --green:#00ff88;--green2:#00cc6a;
+  --gold:#ffd700;--orange:#ff6b00;--orange2:#ff8c3a;
+  --white:#fff;--gray:#8892a4;--lightgray:#b0bac9;
+  --card:#0f1f0f;--border:rgba(0,255,136,0.12);
+  --veg:#00ff88;--nonveg:#ff6b00;
+  --red:#ff3b3b;
+}
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);color:var(--white);
+}
+body{max-width:480px;margin:0 auto;position:relative}
+
+/* ════════════════════════
+PAGE SYSTEM
+════════════════════════ */
+.pg{
+position:absolute;inset:0;
+display:flex;flex-direction:column;
+background:var(–bg);
+transform:translateX(100%);
+transition:transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94);
+will-change:transform;
+overflow:hidden;
+}
+.pg.active{transform:translateX(0)}
+.pg.behind{transform:translateX(-15%);opacity:0.7;pointer-events:none}
+#pg0{transform:translateX(0)}
+
+/* NAV */
+.nav{
+flex-shrink:0;
+background:rgba(6,12,6,0.96);
+backdrop-filter:blur(24px);
+border-bottom:1px solid var(–border);
+padding:0 18px;height:58px;
+display:flex;align-items:center;justify-content:space-between;
+z-index:10;
+}
+.nav-logo{
+font-family:‘Bebas Neue’,sans-serif;
+font-size:22px;letter-spacing:2px;color:var(–white);
+}
+.nav-logo b{color:var(–green);font-weight:400}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.btn-call{
+display:flex;align-items:center;gap:5px;
+background:var(–orange);color:white;
+padding:7px 12px;border-radius:7px;
+font-size:12px;font-weight:700;text-decoration:none;
+letter-spacing:0.3px;
+}
+.btn-ham{
+width:38px;height:38px;border-radius:8px;
+background:rgba(0,255,136,0.06);border:1px solid var(–border);
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+gap:5px;cursor:pointer;padding:9px;
+}
+.btn-ham span{
+display:block;width:18px;height:1.5px;
+background:var(–green);border-radius:2px;transition:all 0.28s;
+}
+.btn-ham.x span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.btn-ham.x span:nth-child(2){opacity:0}
+.btn-ham.x span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.btn-back{
+width:36px;height:36px;border-radius:8px;
+background:rgba(0,255,136,0.06);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;color:var(–white);font-size:18px;
+touch-action:manipulation;
+}
+
+/* PROGRESS */
+.prog-bar{
+flex-shrink:0;
+padding:10px 18px;background:var(–bg2);
+border-bottom:1px solid var(–border);
+display:flex;align-items:center;gap:10px;
+}
+.prog-dots{display:flex;gap:5px;flex:1}
+.prog-dot{
+flex:1;height:3px;border-radius:100px;
+background:rgba(255,255,255,0.07);overflow:hidden;
+}
+.prog-fill{height:100%;background:var(–green);border-radius:100px;transition:width 0.5s ease}
+.prog-txt{font-size:10px;color:var(–gray);font-family:‘Rajdhani’,sans-serif;letter-spacing:1px;white-space:nowrap}
+
+/* SCROLLABLE CONTENT */
+.pg-body{
+flex:1;overflow-y:auto;overflow-x:hidden;
+-webkit-overflow-scrolling:touch;
+}
+.pg-body::-webkit-scrollbar{width:2px}
+.pg-body::-webkit-scrollbar-thumb{background:var(–green);border-radius:10px}
+
+/* STICKY BOTTOM CTA */
+.pg-cta{
+flex-shrink:0;
+padding:12px 18px;
+background:rgba(6,12,6,0.97);
+backdrop-filter:blur(20px);
+border-top:1px solid var(–border);
+}
+
+/* ════════════════════════
+COMMON COMPONENTS
+════════════════════════ */
+.tag{
+font-family:‘Rajdhani’,sans-serif;font-size:10px;
+color:var(–green);letter-spacing:3px;text-transform:uppercase;
+display:flex;align-items:center;gap:5px;margin-bottom:6px;
+}
+.tag::before{content:’//’;opacity:0.4}
+.h1{
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(36px,9vw,48px);
+letter-spacing:2px;line-height:0.95;margin-bottom:8px;
+}
+.sub{font-size:13px;color:var(–gray);line-height:1.65;margin-bottom:24px}
+
+.btn-green{
+width:100%;background:var(–green);color:var(–bg);
+border:none;padding:17px;border-radius:10px;
+font-family:‘Bebas Neue’,sans-serif;font-size:21px;
+letter-spacing:2px;cursor:pointer;transition:all 0.18s;
+touch-action:manipulation;display:block;text-align:center;
+}
+.btn-green:active{transform:scale(0.975);opacity:0.9}
+.btn-green:disabled{opacity:0.35;pointer-events:none}
+.btn-ghost{
+width:100%;background:transparent;color:rgba(255,255,255,0.5);
+border:1px solid var(–border);padding:13px;border-radius:10px;
+font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;
+transition:all 0.18s;touch-action:manipulation;
+}
+.btn-ghost:hover{border-color:var(–green);color:var(–green)}
+
+/* CARD */
+.card{
+background:var(–card);border:1px solid var(–border);
+border-radius:14px;overflow:hidden;margin-bottom:14px;
+}
+.card-hd{
+padding:15px 18px;border-bottom:1px solid var(–border);
+background:rgba(0,255,136,0.02);
+}
+.card-hd-title{
+font-family:‘Bebas Neue’,sans-serif;font-size:17px;
+letter-spacing:1.5px;color:var(–white);
+}
+.card-hd-sub{font-size:11px;color:var(–gray);margin-top:2px}
+.card-body{padding:16px 18px}
+
+/* FORM */
+.fg{margin-bottom:14px}
+.fl{
+display:block;font-size:10px;font-weight:700;
+text-transform:uppercase;letter-spacing:1px;
+color:var(–gray);margin-bottom:6px;
+font-family:‘Rajdhani’,sans-serif;
+}
+.fi{
+width:100%;background:rgba(255,255,255,0.04);
+border:1px solid var(–border);border-radius:8px;
+padding:12px 14px;color:var(–white);
+font-size:15px;font-family:‘DM Sans’,sans-serif;
+outline:none;transition:border-color 0.2s;
+}
+.fi:focus{border-color:var(–green)}
+.fi::placeholder{color:rgba(255,255,255,0.18)}
+select.fi{
+appearance:none;
+background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘10’ height=‘7’%3E%3Cpath d=‘M1 1l4 4 4-4’ stroke=’%238892a4’ stroke-width=‘1.5’ fill=‘none’/%3E%3C/svg%3E”);
+background-repeat:no-repeat;background-position:right 13px center;padding-right:35px;
+background-color:rgba(255,255,255,0.04);
+}
+select.fi option{background:#0d1a0d}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ════════════════════════
+DRAWER
+════════════════════════ */
+.overlay{
+position:fixed;inset:0;z-index:997;
+background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);
+opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.overlay.on{opacity:1;pointer-events:all}
+.drawer{
+position:fixed;top:0;right:0;bottom:0;
+width:76%;max-width:290px;z-index:998;
+background:var(–bg2);
+border-left:1px solid var(–border);
+transform:translateX(100%);
+transition:transform 0.34s cubic-bezier(0.4,0,0.2,1);
+display:flex;flex-direction:column;overflow:hidden;
+}
+.drawer.on{transform:translateX(0)}
+.dr-top{
+padding:16px 16px 13px;
+border-bottom:1px solid var(–border);
+background:var(–bg);
+display:flex;align-items:center;justify-content:space-between;
+flex-shrink:0;
+}
+.dr-logo{font-family:‘Bebas Neue’,sans-serif;font-size:20px;letter-spacing:2px;color:var(–white)}
+.dr-logo b{color:var(–green);font-weight:400}
+.dr-x{
+width:30px;height:30px;border-radius:6px;
+background:rgba(255,255,255,0.05);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;color:var(–gray);font-size:15px;
+}
+.dr-body{flex:1;overflow-y:auto;padding:14px}
+.dr-sec{margin-bottom:20px}
+.dr-lbl{
+font-family:‘Rajdhani’,sans-serif;font-size:9px;font-weight:700;
+color:var(–green);letter-spacing:3px;text-transform:uppercase;
+margin-bottom:8px;display:flex;align-items:center;gap:5px;
+}
+.dr-lbl::before{content:’//’;opacity:0.4}
+.di{
+display:flex;align-items:center;gap:10px;
+padding:11px 12px;border-radius:9px;cursor:pointer;
+transition:all 0.18s;margin-bottom:3px;
+border:1px solid transparent;touch-action:manipulation;
+}
+.di:hover,.di:active{background:rgba(0,255,136,0.05);border-color:var(–border)}
+.di-ico{
+width:33px;height:33px;border-radius:7px;flex-shrink:0;
+background:rgba(0,255,136,0.07);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;font-size:15px;
+}
+.di-name{font-size:13px;font-weight:600;color:var(–white);margin-bottom:1px}
+.di-sub{font-size:10px;color:var(–gray)}
+.di-arr{margin-left:auto;color:var(–gray);font-size:13px}
+.dr-contact{
+margin:0 14px 14px;padding:13px;
+background:rgba(0,255,136,0.03);border:1px solid var(–border);border-radius:10px;
+flex-shrink:0;
+}
+.dr-ct{font-size:9px;color:var(–green);letter-spacing:2px;text-transform:uppercase;font-weight:700;font-family:‘Rajdhani’,sans-serif;margin-bottom:9px}
+.dr-ci{font-size:11px;color:var(–gray);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.dr-ci a{color:var(–green);text-decoration:none;font-weight:600}
+
+/* ════════════════════════
+PAGE 0: HOME
+════════════════════════ */
+#pg0{background:var(–bg)}
+.home-scroll{
+flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+position:relative;
+}
+.home-scroll::-webkit-scrollbar{width:2px}
+.home-scroll::-webkit-scrollbar-thumb{background:var(–green)}
+.hero{
+min-height:calc(100vh - 58px);
+padding:36px 20px 48px;
+position:relative;overflow:hidden;
+display:flex;flex-direction:column;justify-content:center;
+}
+.h-bg{
+position:absolute;inset:0;
+background:
+radial-gradient(ellipse 70% 50% at 85% 8%,rgba(0,255,136,0.07),transparent 70%),
+radial-gradient(ellipse 55% 55% at 10% 92%,rgba(255,107,0,0.05),transparent 70%),
+var(–bg);
+}
+.h-grid{
+position:absolute;inset:0;
+background-image:linear-gradient(rgba(0,255,136,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.022) 1px,transparent 1px);
+background-size:42px 42px;
+}
+.h-inner{position:relative;z-index:2}
+.h-badge{
+display:inline-flex;align-items:center;gap:5px;
+background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.14);
+color:var(–green);padding:5px 12px;border-radius:4px;
+font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+margin-bottom:20px;
+}
+.h-badge::before{content:‘▶’;font-size:7px}
+.h-h{
+font-family:‘Bebas Neue’,sans-serif;
+font-size:clamp(54px,14vw,70px);
+line-height:0.92;letter-spacing:2px;margin-bottom:14px;
+}
+.hh1{color:var(–white)}
+.hh2{color:transparent;-webkit-text-stroke:1.8px var(–green)}
+.hh3{color:var(–gold);font-style:italic}
+.h-tag{
+font-family:‘Rajdhani’,sans-serif;font-size:11px;
+color:var(–gray);letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;
+}
+.h-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:24px}
+.hst{
+background:var(–card);border:1px solid var(–border);
+border-radius:10px;padding:13px 12px;position:relative;overflow:hidden;
+}
+.hst::before{
+content:’’;position:absolute;top:0;left:0;right:0;height:2px;
+background:linear-gradient(90deg,transparent,var(–green),transparent);
+}
+.hst-n{font-family:‘Bebas Neue’,sans-serif;font-size:28px;letter-spacing:1px}
+.hst-l{font-size:10px;color:var(–gray);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+.h-price-row{
+background:var(–card);border:1px solid var(–border);
+border-radius:11px;padding:14px 16px;
+display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;
+}
+.hp{text-align:center}
+.hp-v{font-family:‘Bebas Neue’,sans-serif;font-size:23px;letter-spacing:1px}
+.hp-v.g{color:var(–veg)}
+.hp-v.o{color:var(–nonveg)}
+.hp-l{font-size:9px;color:var(–gray);text-transform:uppercase;letter-spacing:0.4px;margin-top:1px}
+.hp-div{width:1px;background:var(–border);height:32px}
+
+/* ════════════════════════
+PAGE 1: GOAL
+════════════════════════ */
+.p-wrap{padding:22px 18px 20px}
+.goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gc{
+background:var(–card);border:2px solid var(–border);
+border-radius:13px;padding:18px 12px;
+cursor:pointer;transition:all 0.22s;text-align:center;
+position:relative;overflow:hidden;touch-action:manipulation;
+}
+.gc.on{border-color:var(–green);box-shadow:0 0 22px rgba(0,255,136,0.1)}
+.gc.on .gci{background:var(–green);color:var(–bg)}
+.gc-tick{
+position:absolute;top:9px;right:9px;
+width:18px;height:18px;border-radius:50%;
+background:var(–green);color:var(–bg);
+font-size:9px;font-weight:900;
+display:none;align-items:center;justify-content:center;
+}
+.gc.on .gc-tick{display:flex}
+.gci{
+width:50px;height:50px;border-radius:12px;
+background:rgba(0,255,136,0.07);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;
+font-size:24px;margin:0 auto 11px;transition:all 0.22s;
+}
+.gcn{
+font-family:‘Rajdhani’,sans-serif;font-size:13px;
+font-weight:700;color:var(–white);text-transform:uppercase;
+letter-spacing:0.5px;margin-bottom:4px;
+}
+.gcd{font-size:10px;color:var(–gray);line-height:1.4}
+
+/* ════════════════════════
+PAGE 2: PLANS
+════════════════════════ */
+.food-sw{
+display:flex;background:rgba(255,255,255,0.04);
+border:1px solid var(–border);border-radius:9px;
+padding:4px;margin-bottom:20px;gap:3px;
+}
+.fsw{
+flex:1;padding:11px;text-align:center;border-radius:7px;
+cursor:pointer;font-family:‘Rajdhani’,sans-serif;
+font-size:13px;font-weight:700;letter-spacing:0.8px;
+transition:all 0.22s;border:none;background:transparent;color:var(–gray);
+touch-action:manipulation;
+}
+.fsw.on{background:var(–card);box-shadow:0 2px 10px rgba(0,0,0,0.4)}
+.fsw.veg.on{color:var(–veg)}
+.fsw.nv.on{color:var(–nonveg)}
+.plans-list{display:flex;flex-direction:column;gap:10px}
+.pc{
+background:var(–card);border:2px solid var(–border);
+border-radius:13px;padding:16px 15px;
+display:flex;align-items:center;gap:12px;
+cursor:pointer;transition:all 0.22s;
+touch-action:manipulation;position:relative;overflow:hidden;
+}
+.pc::after{
+content:’’;position:absolute;left:0;top:0;bottom:0;
+width:3px;background:var(–green);transform:scaleY(0);
+transition:0.22s;border-radius:0 2px 2px 0;
+}
+.pc.on{border-color:rgba(0,255,136,0.28);background:rgba(0,255,136,0.02)}
+.pc.on::after{transform:scaleY(1)}
+.pci{
+width:46px;height:46px;border-radius:11px;flex-shrink:0;
+background:rgba(0,255,136,0.07);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.pin{flex:1}
+.pn{
+font-family:‘Rajdhani’,sans-serif;font-size:15px;
+font-weight:700;color:var(–white);text-transform:uppercase;
+letter-spacing:0.5px;margin-bottom:3px;
+}
+.pm{font-size:11px;color:var(–gray)}
+.pbg{
+font-size:9px;font-weight:700;padding:2px 7px;
+border-radius:4px;text-transform:uppercase;letter-spacing:0.8px;margin-left:7px;
+}
+.bt{background:rgba(255,107,0,0.1);color:var(–orange);border:1px solid rgba(255,107,0,0.2)}
+.bp{background:rgba(0,255,136,0.07);color:var(–green);border:1px solid rgba(0,255,136,0.18)}
+.bb{background:rgba(255,215,0,0.07);color:var(–gold);border:1px solid rgba(255,215,0,0.18)}
+.pr{text-align:right;flex-shrink:0}
+.po{font-size:11px;color:var(–gray);text-decoration:line-through;margin-bottom:1px}
+.pp{font-family:‘Bebas Neue’,sans-serif;font-size:24px;letter-spacing:1px}
+.pp.v{color:var(–veg)}
+.pp.n{color:var(–nonveg)}
+.pper{font-size:10px;color:var(–gray);margin-top:1px}
+
+/* ════════════════════════
+PAGE 3: MENU
+════════════════════════ */
+.menu-sw{
+display:flex;background:rgba(255,255,255,0.04);
+border:1px solid var(–border);border-radius:9px;
+padding:4px;margin-bottom:20px;
+}
+.msw{
+flex:1;padding:11px;text-align:center;border-radius:7px;
+cursor:pointer;font-family:‘Rajdhani’,sans-serif;
+font-size:13px;font-weight:700;letter-spacing:0.8px;
+transition:all 0.22s;border:none;background:transparent;color:var(–gray);
+touch-action:manipulation;
+}
+.msw.on{background:var(–card);box-shadow:0 2px 10px rgba(0,0,0,0.4)}
+.msw.v.on{color:var(–veg)}
+.msw.nv.on{color:var(–nonveg)}
+.mplan{display:none}
+.mplan.on{display:block}
+.mcat{margin-bottom:24px}
+.mcat-hd{
+display:flex;align-items:center;gap:9px;
+margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(–border);
+}
+.mcat-ico{
+width:34px;height:34px;border-radius:8px;
+display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.ci-b{background:rgba(255,165,0,0.09);border:1px solid rgba(255,165,0,0.18)}
+.ci-l{background:rgba(255,107,0,0.09);border:1px solid rgba(255,107,0,0.18)}
+.ci-d{background:rgba(99,102,241,0.09);border:1px solid rgba(99,102,241,0.18)}
+.mcat-title{font-family:‘Rajdhani’,sans-serif;font-size:14px;font-weight:700;color:var(–white);text-transform:uppercase;letter-spacing:0.5px}
+.mcat-sub{font-size:10px;color:var(–gray);margin-top:1px}
+.mlist{display:flex;flex-direction:column;gap:7px}
+.mrow{
+background:var(–card);border:1px solid var(–border);
+border-radius:9px;padding:11px 12px;
+display:flex;align-items:center;gap:10px;
+}
+.mico{
+width:38px;height:38px;border-radius:7px;flex-shrink:0;
+display:flex;align-items:center;justify-content:center;font-size:19px;
+background:rgba(255,255,255,0.04);
+}
+.mn{font-size:12px;font-weight:600;color:var(–white);margin-bottom:2px}
+.md{font-size:10px;color:var(–gray)}
+.mtg{
+font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;
+text-transform:uppercase;letter-spacing:0.4px;flex-shrink:0;margin-left:auto;
+}
+.tv{background:rgba(0,255,136,0.07);color:var(–veg);border:1px solid rgba(0,255,136,0.16)}
+.tnv{background:rgba(255,107,0,0.07);color:var(–nonveg);border:1px solid rgba(255,107,0,0.16)}
+.tday{background:rgba(255,255,255,0.04);color:var(–gray);border:1px solid var(–border)}
+
+/* ════════════════════════
+PAGE 4: ORDER
+════════════════════════ */
+.sum-box{
+background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.12);
+border-radius:11px;padding:14px;margin-bottom:14px;
+}
+.sum-hd{
+font-family:‘Rajdhani’,sans-serif;font-size:10px;font-weight:700;
+color:var(–green);letter-spacing:2px;text-transform:uppercase;margin-bottom:11px;
+display:flex;align-items:center;gap:5px;
+}
+.sum-hd::before{content:’//’;opacity:0.4}
+.srow{
+display:flex;justify-content:space-between;
+padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;
+}
+.srow:last-child{border:none;padding-top:10px}
+.slbl{color:var(–gray)}
+.sval{font-weight:600}
+.stotal{
+font-family:‘Bebas Neue’,sans-serif;font-size:26px;
+letter-spacing:1px;color:var(–green);
+}
+.upi-box{
+background:rgba(255,215,0,0.03);border:1px solid rgba(255,215,0,0.14);
+border-radius:11px;padding:14px;margin-bottom:14px;
+}
+.upi-hd{
+font-family:‘Rajdhani’,sans-serif;font-size:10px;font-weight:700;
+color:var(–gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:11px;
+}
+.upi-methods{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.upi-m{
+background:rgba(255,255,255,0.04);border:1px solid var(–border);
+border-radius:6px;padding:6px 11px;font-size:11px;font-weight:600;color:var(–white);
+}
+.upi-id-row{
+background:var(–bg);border:1px solid rgba(255,215,0,0.18);
+border-radius:8px;padding:11px 13px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.upi-id{font-family:‘Rajdhani’,sans-serif;font-size:15px;font-weight:700;color:var(–gold);letter-spacing:0.5px}
+.copy-btn{
+background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.18);
+color:var(–gold);padding:6px 11px;border-radius:6px;
+font-size:11px;font-weight:700;cursor:pointer;font-family:‘DM Sans’,sans-serif;
+}
+.wa-btn{
+width:100%;background:linear-gradient(135deg,#25D366,#128C7E);
+color:white;border:none;padding:17px;border-radius:10px;
+font-family:‘Bebas Neue’,sans-serif;font-size:21px;letter-spacing:2px;
+cursor:pointer;transition:all 0.18s;
+display:flex;align-items:center;justify-content:center;gap:9px;
+touch-action:manipulation;
+}
+.wa-btn:active{transform:scale(0.975)}
+.wa-note{text-align:center;font-size:11px;color:var(–gray);margin-top:10px;line-height:1.6}
+
+/* WA FLOAT */
+.wa-float{
+position:fixed;bottom:22px;right:14px;z-index:996;
+width:48px;height:48px;border-radius:50%;
+background:#25D366;display:flex;align-items:center;justify-content:center;
+box-shadow:0 4px 18px rgba(37,211,102,0.45);text-decoration:none;
+animation:wap 2.5s infinite;
+}
+@keyframes wap{0%,100%{box-shadow:0 4px 18px rgba(37,211,102,0.4)}50%{box-shadow:0 4px 28px rgba(37,211,102,0.7)}}
+
+/* BMI */
+.bmi-wrap{
+background:var(–card);border:1px solid var(–border);
+border-radius:13px;overflow:hidden;margin-top:20px;
+}
+.bmi-hd{
+background:linear-gradient(135deg,var(–green2),var(–green));
+padding:16px;display:flex;align-items:center;gap:11px;
+}
+.bmi-hd-icon{font-size:24px}
+.bmi-hd-title{font-family:‘Bebas Neue’,sans-serif;font-size:20px;color:var(–bg);letter-spacing:2px}
+.bmi-hd-sub{font-size:10px;color:rgba(0,0,0,0.5);margin-top:1px}
+.bmi-body{padding:18px}
+.bmi-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.bmi-f{
+background:rgba(255,255,255,0.04);border:1px solid var(–border);
+border-radius:9px;padding:12px;transition:border-color 0.2s;
+}
+.bmi-f:focus-within{border-color:var(–green)}
+.bmi-f label{display:block;font-size:9px;color:var(–gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;font-family:‘Rajdhani’,sans-serif;font-weight:600}
+.bmi-f input,.bmi-f select{width:100%;background:none;border:none;outline:none;color:var(–white);font-size:19px;font-family:‘Bebas Neue’,sans-serif;letter-spacing:1px}
+.bmi-f input::placeholder{color:rgba(255,255,255,0.15)}
+.bmi-calc{
+width:100%;background:linear-gradient(135deg,var(–green2),var(–green));
+color:var(–bg);border:none;padding:13px;border-radius:9px;
+font-family:‘Bebas Neue’,sans-serif;font-size:17px;letter-spacing:2px;
+cursor:pointer;margin-bottom:16px;touch-action:manipulation;
+}
+.bmi-res{display:none}
+.bmi-res.on{display:block}
+.bmi-score-row{
+display:flex;align-items:center;gap:13px;
+background:rgba(255,255,255,0.03);border:1px solid var(–border);
+border-radius:10px;padding:16px;margin-bottom:11px;
+}
+.bmi-num{font-family:‘Bebas Neue’,sans-serif;font-size:56px;line-height:1;letter-spacing:2px}
+.bmi-cat{font-family:‘Rajdhani’,sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.bmi-msg{font-size:11px;color:var(–gray);margin-top:3px;line-height:1.5}
+.bmi-bar-wrap{margin-bottom:11px}
+.bmi-bar-lbl{display:flex;justify-content:space-between;font-size:8px;color:var(–gray);margin-bottom:5px;font-family:‘Rajdhani’,sans-serif}
+.bmi-bar{height:7px;border-radius:100px;background:linear-gradient(90deg,#3b82f6,#22c55e,#f59e0b,#ef4444);position:relative}
+.bmi-needle{
+position:absolute;top:50%;transform:translate(-50%,-50%);
+width:15px;height:15px;border-radius:50%;background:white;
+box-shadow:0 0 8px rgba(255,255,255,0.5);
+transition:left 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+.bmi-rec{
+background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.1);
+border-radius:9px;padding:12px;font-size:12px;color:var(–white);line-height:1.6;
+}
+.bmi-rec strong{color:var(–green)}
+</style>
+
+</head>
+<body>
+
+<!-- WA FLOAT -->
+
+<a href="https://wa.me/916204524077" class="wa-float" target="_blank">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="ovl" onclick="closeDr()"></div>
+
+<!-- DRAWER -->
+
+<div class="drawer" id="dr">
+  <div class="dr-top">
+    <div class="dr-logo">FIT<b>2</b>EAT</div>
+    <div class="dr-x" onclick="closeDr()">✕</div>
+  </div>
+  <div class="dr-body">
+    <div class="dr-sec">
+      <div class="dr-lbl">PAGES</div>
+      <div class="di" onclick="goTo(0);closeDr()"><div class="di-ico">🏠</div><div><div class="di-name">Home</div><div class="di-sub">Back to start</div></div><div class="di-arr">›</div></div>
+      <div class="di" onclick="goTo(1);closeDr()"><div class="di-ico">🎯</div><div><div class="di-name">Choose Goal</div><div class="di-sub">Start subscription</div></div><div class="di-arr">›</div></div>
+      <div class="di" onclick="goTo(2);closeDr()"><div class="di-ico">📦</div><div><div class="di-name">Plans & Pricing</div><div class="di-sub">3 Days · 2 Weeks · Monthly</div></div><div class="di-arr">›</div></div>
+      <div class="di" onclick="goTo(4);closeDr()"><div class="di-ico">📲</div><div><div class="di-name">Order Now</div><div class="di-sub">Place your order</div></div><div class="di-arr">›</div></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-lbl">GOAL PLANS</div>
+      <div class="di" onclick="quickGoal('Muscle Gain Diet')"><div class="di-ico">💪</div><div><div class="di-name">Muscle Gain</div><div class="di-sub">High protein meals</div></div></div>
+      <div class="di" onclick="quickGoal('Fat Loss Diet')"><div class="di-ico">🔥</div><div><div class="di-name">Fat Loss</div><div class="di-sub">Calorie controlled</div></div></div>
+      <div class="di" onclick="quickGoal('Office Meal Diet')"><div class="di-ico">⚡</div><div><div class="di-name">Office Meal</div><div class="di-sub">Balanced & filling</div></div></div>
+      <div class="di" onclick="quickGoal('PCOS Fat Loss')"><div class="di-ico">🌸</div><div><div class="di-name">PCOS Diet</div><div class="di-sub">Hormone friendly</div></div></div>
+    </div>
+  </div>
+  <div class="dr-contact">
+    <div class="dr-ct">CONTACT</div>
+    <div class="dr-ci">📞 <a href="tel:6204524077">+91 6204524077</a></div>
+    <div class="dr-ci">🎧 <a href="tel:7710880902">77108 80902</a> (24/7)</div>
+    <div class="dr-ci">📸 <a href="#">@fit2eat.india</a></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PAGE 0: HOME
+═══════════════════════════════ -->
+
+<div id="pg0" class="pg active">
+  <nav class="nav">
+    <div class="nav-logo">FIT<b style="color:var(--green);font-weight:400">2</b>EAT</div>
+    <div class="nav-actions">
+      <a href="tel:6204524077" class="btn-call">📞 CALL</a>
+      <div class="btn-ham" id="h0" onclick="openDr()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="home-scroll">
+    <div class="hero">
+      <div class="h-bg"></div>
+      <div class="h-grid"></div>
+      <div class="h-inner">
+        <div class="h-badge">🌿 Gurgaon · Sector 57 · Fresh Daily</div>
+        <h1 class="h-h">
+          <div class="hh1">CUSTOMIZED</div>
+          <div class="hh2">DIET PLANS</div>
+          <div class="hh3">& Nutrition</div>
+        </h1>
+        <p class="h-tag">Healthy Food Delivery · Zero Cold Storage</p>
+        <div class="h-stats">
+          <div class="hst"><div class="hst-n" style="color:var(--green)">100+</div><div class="hst-l">Meals Delivered</div></div>
+          <div class="hst"><div class="hst-n" style="color:var(--green)">0%</div><div class="hst-l">Cold Storage</div></div>
+          <div class="hst"><div class="hst-n" style="color:var(--gold)">₹166</div><div class="hst-l">Per Meal Veg</div></div>
+          <div class="hst"><div class="hst-n" style="color:var(--nonveg)">₹199</div><div class="hst-l">Per Meal Non-Veg</div></div>
+        </div>
+        <div class="h-price-row">
+          <div class="hp"><div class="hp-v g">₹649</div><div class="hp-l">🥦 3 Days Veg</div></div>
+          <div class="hp-div"></div>
+          <div class="hp"><div class="hp-v o">₹799</div><div class="hp-l">🍗 3 Days Non-Veg</div></div>
+          <div class="hp-div"></div>
+          <div class="hp"><div class="hp-v g">₹6,649</div><div class="hp-l">🥦 Monthly Veg</div></div>
+        </div>
+        <button class="btn-green" onclick="goTo(1)">▶ START FOOD SUBSCRIPTION</button>
+        <button class="btn-ghost" onclick="goTo(3)">🍽️ View Full Menu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PAGE 1: GOAL
+═══════════════════════════════ -->
+
+<div id="pg1" class="pg">
+  <nav class="nav">
+    <div class="btn-back" onclick="goBack(0)">←</div>
+    <div class="nav-logo">FIT<b style="color:var(--green);font-weight:400">2</b>EAT</div>
+    <div class="btn-ham" onclick="openDr()"><span></span><span></span><span></span></div>
+  </nav>
+  <div class="prog-bar">
+    <div class="prog-dots">
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:0%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:0%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div class="prog-txt">1 / 4</div>
+  </div>
+  <div class="pg-body">
+    <div class="p-wrap">
+      <div class="tag">YOUR MISSION</div>
+      <div class="h1">CHOOSE YOUR<br><span style="color:var(--green)">GOAL</span></div>
+      <p class="sub">Select your fitness goal — we'll build your perfect meal plan.</p>
+      <div class="goals-grid">
+        <div class="gc" onclick="selGoal(this,'Muscle Gain Diet')">
+          <div class="gc-tick">✓</div>
+          <div class="gci">💪</div>
+          <div class="gcn">Muscle Gain</div>
+          <div class="gcd">High protein for lean muscle & strength</div>
+        </div>
+        <div class="gc" onclick="selGoal(this,'Fat Loss Diet')">
+          <div class="gc-tick">✓</div>
+          <div class="gci">🔥</div>
+          <div class="gcn">Fat Loss</div>
+          <div class="gcd">Calorie controlled fat burning</div>
+        </div>
+        <div class="gc" onclick="selGoal(this,'Office Meal Diet')">
+          <div class="gc-tick">✓</div>
+          <div class="gci">⚡</div>
+          <div class="gcn">Office Meal</div>
+          <div class="gcd">Balanced & filling workday meals</div>
+        </div>
+        <div class="gc" onclick="selGoal(this,'PCOS Fat Loss')">
+          <div class="gc-tick">✓</div>
+          <div class="gci">🌸</div>
+          <div class="gcn">PCOS Diet</div>
+          <div class="gcd">Hormone-friendly weight loss</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-cta">
+    <button class="btn-green" id="btn1" onclick="goTo(2)" disabled>CONTINUE TO BMI →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PAGE 2: BMI CALCULATOR
+═══════════════════════════════ -->
+
+<div id="pg2" class="pg">
+  <nav class="nav">
+    <div class="btn-back" onclick="goBack(1)">←</div>
+    <div class="nav-logo">FIT<b style="color:var(--green);font-weight:400">2</b>EAT</div>
+    <div class="btn-ham" onclick="openDr()"><span></span><span></span><span></span></div>
+  </nav>
+  <div class="prog-bar">
+    <div class="prog-dots">
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:0%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div class="prog-txt">2 / 4</div>
+  </div>
+  <div class="pg-body">
+    <div class="p-wrap">
+      <div class="tag">STEP TWO</div>
+      <div class="h1">YOUR BODY<br><span style="color:var(--green)">PROFILE</span></div>
+      <p class="sub">Calculate your BMI for the most accurate meal plan recommendation.</p>
+
+```
+  <div style="background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.15);border-radius:14px;overflow:hidden;margin-bottom:14px">
+    <div style="background:linear-gradient(135deg,#00cc6a,#00ff88);padding:14px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:22px">🎯</span>
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#000;letter-spacing:2px">BMI CALCULATOR</div>
+        <div style="font-size:9px;color:rgba(0,0,0,0.6);margin-top:1px">Enter stats · Unlock plan</div>
+      </div>
+    </div>
+    <div style="padding:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:11px">
+          <label style="display:block;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600">Height (cm)</label>
+          <input type="number" id="bh" placeholder="170" style="width:100%;background:none;border:none;outline:none;color:white;font-size:18px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px">
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:11px">
+          <label style="display:block;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600">Weight (kg)</label>
+          <input type="number" id="bw" placeholder="70" style="width:100%;background:none;border:none;outline:none;color:white;font-size:18px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px">
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:11px">
+          <label style="display:block;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600">Age</label>
+          <input type="number" id="ba" placeholder="25" style="width:100%;background:none;border:none;outline:none;color:white;font-size:18px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px">
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:11px">
+          <label style="display:block;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600">Gender</label>
+          <select id="bg2" style="width:100%;background:none;border:none;outline:none;color:white;font-size:16px;font-family:'Bebas Neue',sans-serif">
+            <option value="m" style="background:#0d1a0d">MALE</option>
+            <option value="f" style="background:#0d1a0d">FEMALE</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="calcBMI()" style="width:100%;background:linear-gradient(135deg,#00cc6a,#00ff88);color:#000;border:none;padding:13px;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;margin-bottom:14px;touch-action:manipulation">⚡ CALCULATE BMI</button>
+      <div id="bmi-res" style="display:none">
+        <div style="display:flex;align-items:center;gap:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(0,255,136,0.1);border-radius:10px;padding:14px;margin-bottom:10px">
+          <div id="bn" style="font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;letter-spacing:2px">--</div>
+          <div><div id="bc" style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase">--</div><div id="bm" style="font-size:11px;color:#888;margin-top:3px;line-height:1.5">--</div></div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:8px;color:#888;margin-bottom:4px"><span>Under</span><span>Normal</span><span>Over</span><span>Obese</span></div>
+          <div style="height:6px;border-radius:100px;background:linear-gradient(90deg,#3b82f6,#22c55e,#f59e0b,#ef4444);position:relative">
+            <div id="bneedle" style="position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:white;box-shadow:0 0 8px rgba(255,255,255,0.5);transition:left 0.8s cubic-bezier(0.34,1.56,0.64,1);left:0%"></div>
+          </div>
+        </div>
+        <div id="brec" style="background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:11px;font-size:11px;color:white;line-height:1.6">--</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+  <div class="sticky-cta">
+    <button class="btn-green" onclick="goTo(3)">CONTINUE TO PLANS →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PAGE 3: PLANS
+═══════════════════════════════ -->
+
+<div id="pg3" class="pg">
+  <nav class="nav">
+    <div class="btn-back" onclick="goBack(2)">←</div>
+    <div class="nav-logo">FIT<b style="color:var(--green);font-weight:400">2</b>EAT</div>
+    <div class="btn-ham" onclick="openDr()"><span></span><span></span><span></span></div>
+  </nav>
+  <div class="prog-bar">
+    <div class="prog-dots">
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div class="prog-txt">3 / 4</div>
+  </div>
+  <div class="pg-body">
+    <div class="p-wrap">
+      <div class="tag">SUBSCRIPTION</div>
+      <div class="h1">CHOOSE YOUR<br><span style="color:var(--orange)">PLAN</span></div>
+      <p class="sub">1 meal per day. Fresh. Delivered to your door.</p>
+      <div class="food-sw">
+        <button class="fsw nv on" onclick="swFood('nv',this)">🍗 NON-VEG</button>
+        <button class="fsw veg" onclick="swFood('veg',this)">🥦 VEG</button>
+      </div>
+      <div id="pnv" class="plans-list">
+        <div class="pc" onclick="selPlan(this,'3 Days Trial','nv',799)">
+          <div class="pci">🎯</div>
+          <div class="pin"><div class="pn">3 Days Trial <span class="pbg bt">LAUNCH OFFER</span></div><div class="pm">3 meals · Test the experience</div></div>
+          <div class="pr"><div class="po" style="font-size:11px;color:#888;text-decoration:line-through">₹999</div><div class="pp n">₹799</div><div class="pper" style="font-size:9px;color:#00ff88;font-weight:700">🔥 Save ₹200</div></div>
+        </div>
+        <div class="pc" onclick="selPlan(this,'2 Weeks','nv',3950)">
+          <div class="pci">📅</div>
+          <div class="pin"><div class="pn">2 Weeks <span class="pbg bp">LAUNCH OFFER</span></div><div class="pm">12 meals · Build the habit</div></div>
+          <div class="pr"><div class="po" style="font-size:11px;color:#888;text-decoration:line-through">₹4,500</div><div class="pp n">₹3,950</div><div class="pper" style="font-size:9px;color:#00ff88;font-weight:700">🔥 Save ₹550</div></div>
+        </div>
+        <div class="pc" onclick="selPlan(this,'Monthly','nv',8000)">
+          <div class="pci">🏆</div>
+          <div class="pin"><div class="pn">Monthly <span class="pbg bb">BEST VALUE</span></div><div class="pm">24 meals · Transform better</div></div>
+          <div class="pr"><div class="po">₹9,000</div><div class="pp n">₹8,000</div><div class="pper">🔥 Save ₹1,000</div></div>
+        </div>
+      </div>
+      <div id="pveg" class="plans-list" style="display:none">
+        <div class="pc" onclick="selPlan(this,'3 Days Trial','veg',649)">
+          <div class="pci">🎯</div>
+          <div class="pin"><div class="pn">3 Days Trial <span class="pbg bt">LAUNCH OFFER</span></div><div class="pm">3 meals · Test the experience</div></div>
+          <div class="pr"><div class="po" style="font-size:11px;color:#888;text-decoration:line-through">₹849</div><div class="pp v">₹649</div><div class="pper" style="font-size:9px;color:#00ff88;font-weight:700">🔥 Save ₹200</div></div>
+        </div>
+        <div class="pc" onclick="selPlan(this,'2 Weeks','veg',3400)">
+          <div class="pci">📅</div>
+          <div class="pin"><div class="pn">2 Weeks <span class="pbg bp">LAUNCH OFFER</span></div><div class="pm">12 meals · Build the habit</div></div>
+          <div class="pr"><div class="po" style="font-size:11px;color:#888;text-decoration:line-through">₹3,816</div><div class="pp v">₹3,400</div><div class="pper" style="font-size:9px;color:#00ff88;font-weight:700">🔥 Save ₹416</div></div>
+        </div>
+        <div class="pc" onclick="selPlan(this,'Monthly','veg',6649)">
+          <div class="pci">🏆</div>
+          <div class="pin"><div class="pn">Monthly <span class="pbg bb">BEST VALUE</span></div><div class="pm">24 meals · Transform better</div></div>
+          <div class="pr"><div class="po">₹7,649</div><div class="pp v">₹6,649</div><div class="pper">🔥 Save ₹1,000</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-cta">
+    <button class="btn-green" id="btn2" onclick="goTo(4)" disabled>NEXT: PLACE ORDER →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PAGE 4: ORDER
+═══════════════════════════════ -->
+
+<div id="pg4" class="pg">
+  <nav class="nav">
+    <div class="btn-back" onclick="goBack(2)">←</div>
+    <div class="nav-logo">FIT<b style="color:var(--green);font-weight:400">2</b>EAT</div>
+    <div class="btn-ham" onclick="openDr()"><span></span><span></span><span></span></div>
+  </nav>
+  <div class="prog-bar">
+    <div class="prog-dots">
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-dot"><div class="prog-fill" style="width:100%"></div></div>
+    </div>
+    <div class="prog-txt">4 / 4</div>
+  </div>
+  <div class="pg-body">
+    <div class="p-wrap">
+      <div class="tag">FINAL STEP</div>
+      <div class="h1">PLACE YOUR<br><span style="color:var(--green)">ORDER</span></div>
+      <p class="sub">Fill details — we confirm via WhatsApp within 2 hours.</p>
+
+```
+  <div class="card">
+    <div class="card-hd"><div class="card-hd-title">👤 PERSONAL INFO</div><div class="card-hd-sub">Tell us about yourself</div></div>
+    <div class="card-body">
+      <div class="fg"><label class="fl">Full Name</label><input class="fi" id="fn" type="text" placeholder="Your name"></div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Phone</label><input class="fi" id="fp" type="tel" placeholder="+91 XXXXX"></div>
+        <div class="fg"><label class="fl">Gender</label><select class="fi" id="fgn"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="card-hd-title">📦 YOUR PLAN</div><div class="card-hd-sub">Confirm your selection</div></div>
+    <div class="card-body">
+      <div class="frow">
+        <div class="fg"><label class="fl">Goal</label><select class="fi" id="fog" onchange="updSum()"><option value="">Select</option><option>Muscle Gain Diet</option><option>Fat Loss Diet</option><option>Office Meal Diet</option><option>PCOS Fat Loss</option></select></div>
+        <div class="fg"><label class="fl">Food Type</label><select class="fi" id="fof" onchange="updSum()"><option value="">Select</option><option>Vegetarian</option><option>Non-Vegetarian</option></select></div>
+      </div>
+      <div class="fg"><label class="fl">Plan</label><select class="fi" id="fop" onchange="updSum()"><option value="">Select plan</option><option>3 Days Trial</option><option>2 Weeks</option><option>Monthly</option></select></div>
+      <div class="fg"><label class="fl">Start Date</label><input class="fi" id="fod" type="date"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="card-hd-title">📍 DELIVERY</div><div class="card-hd-sub">Sector 57, Gurgaon & nearby areas</div></div>
+    <div class="card-body">
+      <div class="fg"><label class="fl">Full Address</label><input class="fi" id="foa" type="text" placeholder="House/Flat, Street, Landmark"></div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Sector/Area</label><input class="fi" id="fos" type="text" placeholder="Sector 57"></div>
+        <div class="fg"><label class="fl">Pincode</label><input class="fi" id="fopin" type="text" placeholder="122003"></div>
+      </div>
+      <div class="fg"><label class="fl">Notes (optional)</label><input class="fi" id="fon" type="text" placeholder="Allergies, spice level..."></div>
+    </div>
+  </div>
+
+  <div class="sum-box">
+    <div class="sum-hd">ORDER SUMMARY</div>
+    <div class="srow"><span class="slbl">Goal</span><span class="sval" id="sg">—</span></div>
+    <div class="srow"><span class="slbl">Food Type</span><span class="sval" id="sf">—</span></div>
+    <div class="srow"><span class="slbl">Plan</span><span class="sval" id="sp">—</span></div>
+    <div class="srow"><span class="slbl">Delivery</span><span class="sval" style="color:var(--green)">FREE ✓</span></div>
+    <div class="srow"><span class="slbl" style="font-weight:700;color:white;font-size:15px">TOTAL</span><span class="stotal" id="st">Select plan</span></div>
+  </div>
+
+  <div class="upi-box">
+    <div class="upi-hd">💳 PAYMENT — UPI</div>
+    <div class="upi-methods">
+      <div class="upi-m">📱 GPay</div><div class="upi-m">📱 PhonePe</div>
+      <div class="upi-m">📱 Paytm</div><div class="upi-m">🏦 Any UPI</div>
+    </div>
+    <div class="upi-id-row">
+      <div><div style="font-size:9px;color:var(--gray);margin-bottom:3px;letter-spacing:1px;font-family:'Rajdhani',sans-serif">UPI ID</div><div class="upi-id">6204524077@ybl</div></div>
+      <button class="copy-btn" onclick="cpUPI()">COPY</button>
+    </div>
+  </div>
+
+  <button class="wa-btn" onclick="subOrder()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    SEND ORDER ON WHATSAPP
+  </button>
+  <p class="wa-note">After payment, send screenshot on WhatsApp.<br>We confirm delivery within 2 hours. 📦</p>
+</div>
+```
+
+  </div>
+</div>
+
+<script>
+// ── STATE
+const S={goal:'',food:'nv',plan:'',price:0};
+let cur=0;
+
+// ── PAGE NAV
+function goTo(n){
+  const c=document.getElementById('pg'+cur);
+  const t=document.getElementById('pg'+n);
+  if(!t)return;
+  c.classList.remove('active');
+  c.classList.add('behind');
+  setTimeout(()=>c.classList.remove('behind'),420);
+  t.classList.add('active');
+  t.querySelector('.pg-body,.home-scroll') && (t.querySelector('.pg-body,.home-scroll').scrollTop=0);
+  cur=n;
+}
+function goBack(n){
+  const c=document.getElementById('pg'+cur);
+  const t=document.getElementById('pg'+n);
+  if(!t)return;
+  c.classList.remove('active');
+  c.style.transition='transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94)';
+  c.style.transform='translateX(100%)';
+  setTimeout(()=>{c.style.transform='';c.style.transition=''},400);
+  t.classList.remove('behind');
+  t.classList.add('active');
+  t.querySelector('.pg-body,.home-scroll') && (t.querySelector('.pg-body,.home-scroll').scrollTop=0);
+  cur=n;
+}
+
+// ── DRAWER
+function openDr(){
+  document.getElementById('dr').classList.add('on');
+  document.getElementById('ovl').classList.add('on');
+  document.querySelectorAll('.btn-ham').forEach(h=>h.classList.add('x'));
+}
+function closeDr(){
+  document.getElementById('dr').classList.remove('on');
+  document.getElementById('ovl').classList.remove('on');
+  document.querySelectorAll('.btn-ham').forEach(h=>h.classList.remove('x'));
+}
+
+// ── GOAL
+function selGoal(el,g){
+  document.querySelectorAll('.gc').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  S.goal=g;
+  document.getElementById('fog').value=g;
+  const b=document.getElementById('btn1');
+  b.disabled=false;b.style.opacity='1';
+}
+function quickGoal(g){
+  S.goal=g;
+  document.getElementById('fog').value=g;
+  closeDr();
+  goTo(1);
+  setTimeout(()=>{
+    document.querySelectorAll('.gc').forEach(c=>{
+      if(c.getAttribute('onclick')&&c.getAttribute('onclick').includes(g))c.classList.add('on');
+    });
+    const b=document.getElementById('btn1');
+    b.disabled=false;b.style.opacity='1';
+  },450);
+}
+
+// ── FOOD SWITCH
+function swFood(t,btn){
+  document.querySelectorAll('.fsw').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  S.food=t;
+  document.getElementById('pnv').style.display=t==='nv'?'flex':'none';
+  document.getElementById('pnv').style.flexDirection='column';
+  document.getElementById('pveg').style.display=t==='veg'?'flex':'none';
+  document.getElementById('pveg').style.flexDirection='column';
+  document.querySelectorAll('.pc').forEach(c=>c.classList.remove('on'));
+  S.plan='';S.price=0;
+  const b=document.getElementById('btn2');
+  b.disabled=true;b.style.opacity='0.35';
+}
+
+// ── PLAN SELECT
+function selPlan(el,p,f,price){
+  document.querySelectorAll('.pc').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  S.plan=p;S.food=f;S.price=price;
+  document.getElementById('fop').value=p;
+  document.getElementById('fof').value=f==='veg'?'Vegetarian':'Non-Vegetarian';
+  const b=document.getElementById('btn2');
+  b.disabled=false;b.style.opacity='1';
+  updSum();
+}
+
+// ── MENU SWITCH
+function swMenu(t,btn){
+  document.querySelectorAll('.msw').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('mv').classList.toggle('on',t==='v');
+  document.getElementById('mnv').classList.toggle('on',t==='nv');
+}
+
+// ── ORDER SUMMARY
+const PR={
+  'Vegetarian':{'3 Days Trial':649,'2 Weeks':3400,'Monthly':6649},
+  'Non-Vegetarian':{'3 Days Trial':799,'2 Weeks':3950,'Monthly':8000}
+};
+function updSum(){
+  const g=document.getElementById('fog').value;
+  const f=document.getElementById('fof').value;
+  const p=document.getElementById('fop').value;
+  document.getElementById('sg').textContent=g||'—';
+  document.getElementById('sf').textContent=f||'—';
+  document.getElementById('sp').textContent=p||'—';
+  const price=PR[f]?.[p];
+  document.getElementById('st').textContent=price?'₹'+price.toLocaleString('en-IN'):'Select plan';
+}
+
+// ── BMI
+function calcBMI(){
+  const h=parseFloat(document.getElementById('bh').value);
+  const w=parseFloat(document.getElementById('bw').value);
+  if(!h||!w){alert('Enter height and weight!');return}
+  const bmi=(w/((h/100)**2)).toFixed(1);
+  const n=parseFloat(bmi);
+  let cat,col,msg,rec,pos;
+  if(n<18.5){cat='UNDERWEIGHT';col='#3b82f6';msg='You need to gain healthy mass.';rec='🎯 <strong>Recommended: Muscle Gain Diet</strong><br>High calorie, high protein meals.';pos=Math.max(2,(n/18.5)*20)}
+  else if(n<25){cat='HEALTHY ✓';col='#00ff88';msg='Great! You\'re in the healthy range!';rec='🎯 <strong>Recommended: Office Meal Diet</strong><br>Balanced nutrition to maintain weight.';pos=20+((n-18.5)/6.5)*30}
+  else if(n<30){cat='OVERWEIGHT';col='#f59e0b';msg='Some weight loss would help.';rec='🎯 <strong>Recommended: Fat Loss Diet</strong><br>Calorie controlled meals.';pos=50+((n-25)/5)*25}
+  else{cat='OBESE';col='#ff3b3b';msg='Weight loss strongly advised.';rec='🎯 <strong>Recommended: Fat Loss Diet</strong><br>Low calorie, high protein meals.';pos=Math.min(95,75+((n-30)/10)*20)}
+  document.getElementById('bn').textContent=bmi;document.getElementById('bn').style.color=col;
+  document.getElementById('bc').textContent=cat;document.getElementById('bc').style.color=col;
+  document.getElementById('bm').textContent=msg;
+  document.getElementById('brec').innerHTML=rec;
+  document.getElementById('bneedle').style.left=pos+'%';
+  document.getElementById('bmi-res').classList.add('on');
+}
+
+// ── COPY UPI
+function cpUPI(){
+  navigator.clipboard.writeText('6204524077@ybl').then(()=>{
+    const b=document.querySelector('.copy-btn');
+    b.textContent='✓ COPIED';b.style.color='var(--green)';
+    setTimeout(()=>{b.textContent='COPY';b.style.color='';},2000);
+  });
+}
+
+// ── SUBMIT
+function subOrder(){
+  const name=document.getElementById('fn').value;
+  const phone=document.getElementById('fp').value;
+  const addr=document.getElementById('foa').value;
+  const goal=document.getElementById('fog').value;
+  const food=document.getElementById('fof').value;
+  const plan=document.getElementById('fop').value;
+  const date=document.getElementById('fod').value;
+  const sec=document.getElementById('fos').value;
+  const pin=document.getElementById('fopin').value;
+  const note=document.getElementById('fon').value;
+  if(!name||!phone||!addr||!plan){alert('Please fill Name, Phone, Address and Plan!');return}
+  const price=PR[food]?.[plan];
+  const msg=`🌿 *FIT2EAT ORDER* 🌿\n\n👤 *Name:* ${name}\n📱 *Phone:* ${phone}\n🎯 *Goal:* ${goal}\n🍽️ *Food:* ${food}\n📦 *Plan:* ${plan}\n💰 *Amount:* ${price?'₹'+price.toLocaleString('en-IN'):'N/A'}\n📍 *Address:* ${addr}, ${sec} - ${pin}\n📅 *Start:* ${date}${note?'\n📝 Notes: '+note:''}\n\n✅ *UPI:* 6204524077@ybl\n\n_Please send payment screenshot_ 🙏`;
+  window.open('https://wa.me/916204524077?text='+encodeURIComponent(msg));
+}
+
+// INIT
+document.getElementById('fod').min=new Date().toISOString().split('T')[0];
+document.getElementById('btn1').style.opacity='0.35';
+document.getElementById('btn2').style.opacity='0.35';
+</script>
+
+</body>
+</html>
